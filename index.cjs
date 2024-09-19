@@ -33,6 +33,7 @@ module.exports = {
     "arrow-body-style": ["warn", "as-needed"],
     curly: "error",
     "local-rules/use-option-type-wrapper": "warn",
+    "local-rules/use-nullish-checks": "warn",
     "import/no-duplicates": ["error", { "prefer-inline": true }],
     "no-console": ["error", { allow: ["error", "warn"] }],
     "no-continue": "warn",

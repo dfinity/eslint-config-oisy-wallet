@@ -92,4 +92,57 @@ module.exports = {
       };
     },
   },
+  "use-nullish-checks": {
+    meta: {
+      type: "suggestion",
+      docs: {
+        description:
+          "Enforce the use of isNullish functions for nullish checks",
+        category: "Best Practices",
+        recommended: true,
+      },
+      fixable: "code",
+      schema: [],
+    },
+    create(context) {
+      const isNullishMessage =
+        "Use isNullish() instead of direct variable check for nullish checks.";
+      const nonNullishMessage =
+        "Use nonNullish() instead of direct variable check for nullish checks.";
+
+      const binaryCheck = (node) => {
+        if (node.type === "BinaryExpression") {
+          return (
+            (node.operator === "===" || node.operator === "!==") &&
+            ((node.right.type === "Identifier" &&
+              node.right.name === "undefined") ||
+              // eslint-disable-next-line local-rules/use-nullish-checks -- This is the rule that is being implemented
+              (node.right.type === "Literal" && node.right.value === null))
+          );
+        }
+      };
+
+      const binaryReportCheck = (node) => {
+        context.report({
+          node,
+          message:
+            node.operator === "===" ? isNullishMessage : nonNullishMessage,
+          fix(fixer) {
+            return fixer.replaceText(
+              node,
+              `${node.operator === "===" ? "isNullish" : "nonNullish"}(${context.getSourceCode().getText(node.left)})`,
+            );
+          },
+        });
+      };
+
+      return {
+        BinaryExpression(node) {
+          if (binaryCheck(node)) {
+            binaryReportCheck(node);
+          }
+        },
+      };
+    },
+  },
 };
