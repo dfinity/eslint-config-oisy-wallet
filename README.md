@@ -2,17 +2,16 @@
 
 A shareable ESLint configuration library for Oisy Wallet projects, supporting both TypeScript and Svelte.
 
-> [!NOTE]
-> This configuration is currently compatible with ESLint 8.
-
 <div align="center" style="display:flex;flex-direction:column;">
 <br/>
 
 [![Internet Computer portal](https://img.shields.io/badge/Internet-Computer-grey?logo=internet%20computer)](https://internetcomputer.org)
 [![GitHub CI Checks Workflow Status](https://img.shields.io/github/actions/workflow/status/dfinity/eslint-config-oisy-wallet/checks.yml?logo=github&label=CI%20checks)](https://github.com/dfinity/eslint-config-oisy-wallet/actions/workflows/checks.yml)
-[![GitHub CI Tests Workflow Status](https://img.shields.io/github/actions/workflow/status/dfinity/eslint-config-oisy-wallet/tests.yml?logo=github&label=CI%20tests)](https://github.com/dfinity/eslint-config-oisy-wallet/actions/workflows/tests.yml)
 
 </div>
+
+> [!NOTE]
+> This configuration is currently compatible with ESLint 8.
 
 ## 🖥️ Installation
 
