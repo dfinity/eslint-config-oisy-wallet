@@ -1,0 +1,61 @@
+{
+  "name": "@dfinity/eslint-config-oisy-wallet",
+  "version": "0.0.1",
+  "description": "Shared ESLint configurations from the Oisy Wallet team",
+  "main": "index.cjs",
+  "files": [
+    "LICENSE",
+    "index.cjs",
+    "svelte.cjs",
+    "eslint-local-rules.cjs",
+    "tsconfig.eslint.json"
+  ],
+  "exports": {
+    ".": {
+      "import": "./index.cjs",
+      "require": "./index.cjs"
+    },
+    "./svelte": {
+      "import": "./svelte.cjs",
+      "require": "./svelte.cjs"
+    }
+  },
+  "scripts": {
+    "format": "prettier . --write",
+    "format:check": "prettier --check .",
+    "lint": "eslint -c index.cjs . --ext .cjs"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-config",
+    "typescript",
+    "svelte",
+    "linting",
+    "code-quality",
+    "icp",
+    "dfinity",
+    "oisy",
+    "wallet",
+    "shared-config",
+    "javascript",
+    "web-development",
+    "best-practices"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-local-rules": "^3.0.2",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-svelte": "^2.44.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "typescript": "^5.3.3"
+  }
+}
