@@ -18,6 +18,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/no-inferrable-types": "error",
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "@typescript-eslint/no-unused-vars": [
