@@ -53,7 +53,7 @@ module.exports = require("@dfinity/eslint-config-oisy-wallet/eslint-local-rules"
 ```
 
 > [!NOTE]
-> This is necessary because the `eslint-local-rules` plugin we use for custom rules requires a file located at the root and does not offer any customizable location option.
+> This is necessary because the `eslint-plugin-local-rules` plugin we use for custom rules requires a file located at the root and does not offer any customizable location option.
 
 ## 🛠️ TypeScript Support
 
