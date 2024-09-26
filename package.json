@@ -1,6 +1,7 @@
 {
   "name": "@dfinity/eslint-config-oisy-wallet",
   "version": "0.0.1",
+  "license": "Apache-2.0",
   "description": "Shared ESLint configurations from the Oisy Wallet team",
   "main": "index.cjs",
   "files": [
@@ -41,8 +42,6 @@
     "web-development",
     "best-practices"
   ],
-  "author": "",
-  "license": "Apache-2.0",
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "eslint": "^8.57.0",
