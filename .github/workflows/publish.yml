@@ -5,7 +5,7 @@ on:
     types: [released]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     permissions:
@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Prepare
         uses: ./.github/actions/prepare
-      - run: npm run build
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
