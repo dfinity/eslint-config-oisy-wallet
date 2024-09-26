@@ -8,7 +8,7 @@
     "url": "git+https://github.com/dfinity/eslint-config-oisy-wallet.git"
   },
   "bugs": {
-    "url": "https://github.com/dfinity/eslint-config-oisy-wallet"
+    "url": "https://github.com/dfinity/eslint-config-oisy-wallet/issues"
   },
   "main": "index.cjs",
   "files": [
