@@ -1,3 +1,18 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { join } = require("node:path");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { existsSync } = require("node:fs");
+
+const resolveProject = () => {
+  const eslintJson = join(process.cwd(), "tsconfig.eslint.json");
+
+  if (existsSync(eslintJson)) {
+    return eslintJson;
+  }
+
+  return join(process.cwd(), "tsconfig.json");
+};
+
 module.exports = {
   root: true,
   extends: [
@@ -10,7 +25,7 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
     ecmaVersion: 2020,
-    project: ["./tsconfig.eslint.json"],
+    project: [resolveProject()],
   },
   env: {
     browser: true,

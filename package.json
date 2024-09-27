@@ -1,6 +1,6 @@
 {
   "name": "@dfinity/eslint-config-oisy-wallet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "Apache-2.0",
   "description": "Shared ESLint configurations from the Oisy Wallet team",
   "repository": {
@@ -15,8 +15,7 @@
     "LICENSE",
     "index.cjs",
     "svelte.cjs",
-    "eslint-local-rules.cjs",
-    "tsconfig.eslint.json"
+    "eslint-local-rules.cjs"
   ],
   "exports": {
     ".": {
