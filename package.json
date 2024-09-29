@@ -34,7 +34,8 @@
   "scripts": {
     "format": "prettier . --write",
     "format:check": "prettier --check .",
-    "lint": "eslint -c index.cjs . --ext .cjs"
+    "lint": "eslint -c index.cjs . --ext .cjs",
+    "test": "vitest --run"
   },
   "keywords": [
     "eslint",
@@ -66,5 +67,10 @@
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.3",
+    "@typescript-eslint/rule-tester": "^8.7.0",
+    "vitest": "^2.1.1"
   }
 }
