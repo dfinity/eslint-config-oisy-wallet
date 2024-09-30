@@ -32,6 +32,14 @@ module.exports = {
     es2017: true,
     node: true,
   },
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        'prefer-const': 'error'
+      }
+    }
+  ],
   rules: {
     "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/no-inferrable-types": "error",
