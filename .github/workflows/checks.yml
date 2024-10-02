@@ -15,6 +15,17 @@ jobs:
       - name: Lint
         run: npm run lint -- --max-warnings 0
 
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Prepare
+        uses: ./.github/actions/prepare
+      - name: Test
+        run: npm run test
+
   may-merge:
     needs: ["lint"]
     runs-on: ubuntu-latest
