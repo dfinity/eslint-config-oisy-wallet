@@ -37,6 +37,10 @@ module.exports = {
         category: "Best Practices",
         recommended: true,
       },
+      messages: {
+        useOption:
+          "Use Option<{{ type }}> instead of {{ type }} | null | undefined.",
+      },
       fixable: "code",
       schema: [],
     },
@@ -64,7 +68,10 @@ module.exports = {
             try {
               context.report({
                 node,
-                message: `Use Option<${typeText}> instead of ${typeText} | null | undefined.`,
+                messageId: "useOption",
+                data: {
+                  type: typeText,
+                },
                 fix(fixer) {
                   return fixer.replaceText(
                     node.typeAnnotation,
