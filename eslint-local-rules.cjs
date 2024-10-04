@@ -1,5 +1,3 @@
-import { join, dirname, relative, sep } from "node:path";
-
 module.exports = {
   "no-svelte-store-in-api": {
     meta: {
