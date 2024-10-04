@@ -1,3 +1,5 @@
+import { join, dirname, relative, sep } from "node:path";
+
 module.exports = {
   "no-svelte-store-in-api": {
     meta: {
@@ -187,6 +189,38 @@ module.exports = {
         },
         ArrowFunctionExpression(node) {
           checkForMoreThanOneParameter(node);
+        },
+      };
+    },
+  },
+  "no-relative-imports": {
+    meta: {
+      type: "layout",
+      schema: {
+        type: "problem",
+        docs: {
+          description: "Disallow all relative imports",
+          category: "Best Practices",
+          recommended: false,
+        },
+        messages: {
+          noRelativeImports:
+            "Relative imports are not allowed. Use an alias or absolute imports.",
+        },
+        schema: [],
+      },
+    },
+    create(context) {
+      return {
+        ImportDeclaration(node) {
+          const path = node.source.value;
+
+          if (path.startsWith("./")) {
+            context.report({
+              node,
+              messageId: "noRelativeImports",
+            });
+          }
         },
       };
     },
