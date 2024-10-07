@@ -122,9 +122,35 @@ module.exports = {
           nonNullish(parent) &&
           parent.type === "CallExpression" &&
           parent.callee.type === "MemberExpression" &&
-          ["map", "reduce", "forEach", "filter", "sort", "replace"].includes(
-            parent.callee.property.name,
-          )
+          [
+            "map",
+            "reduce",
+            "forEach",
+            "filter",
+            "sort",
+            "replace",
+            "concat",
+            "copyWithin",
+            "every",
+            "fill",
+            "find",
+            "findIndex",
+            "findLast",
+            "findLastIndex",
+            "flatMap",
+            "includes",
+            "indexOf",
+            "lastIndexOf",
+            "push",
+            "reduce",
+            "reduceRight",
+            "slice",
+            "splice",
+            "toLocaleString",
+            "toSpliced",
+            "unshift",
+            "with",
+          ].includes(parent.callee.property.name)
         ) {
           return;
         }
