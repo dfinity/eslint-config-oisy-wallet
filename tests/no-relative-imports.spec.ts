@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-const rule = require("../eslint-local-rules.cjs")["no-relative-imports"];
+const rule = require("../rules/no-relative-imports");
 
 const ruleTester = new RuleTester();
 
