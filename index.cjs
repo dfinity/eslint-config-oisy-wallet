@@ -34,11 +34,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.ts'],
+      files: ["*.ts"],
       rules: {
-        'prefer-const': 'error'
-      }
-    }
+        "prefer-const": "error",
+      },
+    },
   ],
   rules: {
     "@typescript-eslint/consistent-type-definitions": "error",
@@ -66,6 +66,7 @@ module.exports = {
     "no-else-return": ["warn", { allowElseIf: false }],
     "no-unused-vars": "off",
     "prefer-template": "error",
+    "require-await": "error",
   },
   globals: {
     NodeJS: true,
