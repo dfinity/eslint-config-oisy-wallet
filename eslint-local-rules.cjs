@@ -122,9 +122,35 @@ module.exports = {
           nonNullish(parent) &&
           parent.type === "CallExpression" &&
           parent.callee.type === "MemberExpression" &&
-          ["map", "reduce", "forEach", "filter", "sort", "replace"].includes(
-            parent.callee.property.name,
-          )
+          [
+            "map",
+            "reduce",
+            "forEach",
+            "filter",
+            "sort",
+            "replace",
+            "concat",
+            "copyWithin",
+            "every",
+            "fill",
+            "find",
+            "findIndex",
+            "findLast",
+            "findLastIndex",
+            "flatMap",
+            "includes",
+            "indexOf",
+            "lastIndexOf",
+            "push",
+            "reduce",
+            "reduceRight",
+            "slice",
+            "splice",
+            "toLocaleString",
+            "toSpliced",
+            "unshift",
+            "with",
+          ].includes(parent.callee.property.name)
         ) {
           return;
         }
@@ -187,6 +213,35 @@ module.exports = {
         },
         ArrowFunctionExpression(node) {
           checkForMoreThanOneParameter(node);
+        },
+      };
+    },
+  },
+  "no-relative-imports": {
+    meta: {
+      type: "suggestion",
+      docs: {
+        description: "Disallow all relative imports",
+        category: "Best Practices",
+        recommended: false,
+      },
+      messages: {
+        noRelativeImports:
+          "Relative imports are not allowed. Use an alias or absolute imports.",
+      },
+      schema: [],
+    },
+    create(context) {
+      return {
+        ImportDeclaration(node) {
+          const path = node.source.value;
+
+          if (path.startsWith("./")) {
+            context.report({
+              node,
+              messageId: "noRelativeImports",
+            });
+          }
         },
       };
     },

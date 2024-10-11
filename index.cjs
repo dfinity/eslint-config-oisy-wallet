@@ -59,6 +59,7 @@ module.exports = {
     "local-rules/prefer-object-params": "warn",
     "local-rules/use-option-type-wrapper": "warn",
     "import/no-duplicates": ["error", { "prefer-inline": true }],
+    "import/no-relative-parent-imports": "error",
     "no-console": ["error", { allow: ["error", "warn"] }],
     "no-continue": "warn",
     "no-delete-var": "error",
