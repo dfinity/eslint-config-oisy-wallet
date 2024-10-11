@@ -34,7 +34,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.ts'],
+      files: ["*.ts"],
       rules: {
         "prefer-const": "error",
       },
