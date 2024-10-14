@@ -15,7 +15,8 @@
     "LICENSE",
     "index.cjs",
     "svelte.cjs",
-    "eslint-local-rules.cjs"
+    "eslint-local-rules.cjs",
+    "rules/**/*.cjs"
   ],
   "exports": {
     ".": {
