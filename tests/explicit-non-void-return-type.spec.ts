@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-const rule = require("../rules/explicit-non-void-return-type");
+const rule = require("../rules/explicit-non-void-return-type.cjs");
 
 const ruleTester = new RuleTester();
 
