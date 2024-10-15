@@ -1,22 +1,3 @@
-const inferReturnType2 = (node, context) => {
-  const sourceCode = context.getSourceCode();
-  const code = sourceCode.getText(node);
-
-  if (node.async) {
-    return "Promise<void>";
-  }
-
-  if (code.includes("Promise<void>")) {
-    return "Promise<void>";
-  }
-
-  if (code.includes("void")) {
-    return "void";
-  }
-
-  return "unknown";
-};
-
 const inferReturnType = (node) => {
   if (node.async) {
     if (
@@ -56,7 +37,7 @@ const inferReturnType = (node) => {
   return "unknown";
 };
 
-const checkReturnType = (node, context) => {
+const checkReturnType = ({ node, context }) => {
   const returnType = node.returnType;
 
   if (!returnType) {
@@ -90,13 +71,13 @@ module.exports = {
   create(context) {
     return {
       FunctionDeclaration(node) {
-        checkReturnType(node, context);
+        checkReturnType({ node, context });
       },
       FunctionExpression(node) {
-        checkReturnType(node, context);
+        checkReturnType({ node, context });
       },
       ArrowFunctionExpression(node) {
-        checkReturnType(node, context);
+        checkReturnType({ node, context });
       },
     };
   },
