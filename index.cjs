@@ -61,7 +61,7 @@ module.exports = {
     "@typescript-eslint/prefer-reduce-type-parameter": "error",
     "arrow-body-style": ["warn", "as-needed"],
     curly: "error",
-    // "func-style": ["error", "expression"],
+    "func-style": "error",
     "local-rules/prefer-object-params": "warn",
     "local-rules/use-option-type-wrapper": "warn",
     "import/no-duplicates": ["error", { "prefer-inline": true }],
@@ -71,15 +71,15 @@ module.exports = {
     "no-delete-var": "error",
     "no-else-return": ["warn", { allowElseIf: false }],
     "no-unused-vars": "off",
-    // "prefer-arrow-callback": "error",
-    // "prefer-arrow/prefer-arrow-functions": [
-    //   "error",
-    //   {
-    //     disallowPrototype: true,
-    //     singleReturnOnly: false,
-    //     classPropertiesAllowed: false,
-    //   },
-    // ],
+    "prefer-arrow-callback": "error",
+    "prefer-arrow/prefer-arrow-functions": [
+      "error",
+      {
+        disallowPrototype: true,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
+      },
+    ],
     "prefer-template": "error",
     "require-await": "error",
   },

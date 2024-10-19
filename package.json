@@ -59,6 +59,7 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "eslint": "^8.57.0",
     "eslint-config-love": "^84.1.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-local-rules": "^3.0.2",
@@ -74,8 +75,5 @@
     "@types/node": "^22.7.3",
     "@typescript-eslint/rule-tester": "^8.7.0",
     "vitest": "^2.1.1"
-  },
-  "dependencies": {
-    "eslint-plugin-prefer-arrow": "^1.2.3"
   }
 }
