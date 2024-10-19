@@ -68,17 +68,15 @@ module.exports = {
     schema: [],
   },
 
-  create(context) {
-    return {
-      FunctionDeclaration(node) {
-        checkReturnType({ node, context });
-      },
-      FunctionExpression(node) {
-        checkReturnType({ node, context });
-      },
-      ArrowFunctionExpression(node) {
-        checkReturnType({ node, context });
-      },
-    };
-  },
+  create: (context) => ({
+    FunctionDeclaration: (node) => {
+      checkReturnType({ node, context });
+    },
+    FunctionExpression: (node) => {
+      checkReturnType({ node, context });
+    },
+    ArrowFunctionExpression: (node) => {
+      checkReturnType({ node, context });
+    },
+  }),
 };

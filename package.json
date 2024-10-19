@@ -74,5 +74,8 @@
     "@types/node": "^22.7.3",
     "@typescript-eslint/rule-tester": "^8.7.0",
     "vitest": "^2.1.1"
+  },
+  "dependencies": {
+    "eslint-plugin-prefer-arrow": "^1.2.3"
   }
 }
