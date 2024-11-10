@@ -32,6 +32,14 @@ module.exports = {
     es2017: true,
     node: true,
   },
+  overrides: [
+    {
+      files: ["*.ts"],
+      rules: {
+        "prefer-const": "error",
+      },
+    },
+  ],
   rules: {
     "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/no-inferrable-types": "error",
@@ -52,12 +60,14 @@ module.exports = {
     "local-rules/use-nullish-checks": "warn",
     "local-rules/use-option-type-wrapper": "warn",
     "import/no-duplicates": ["error", { "prefer-inline": true }],
+    "import/no-relative-parent-imports": "error",
     "no-console": ["error", { allow: ["error", "warn"] }],
     "no-continue": "warn",
     "no-delete-var": "error",
     "no-else-return": ["warn", { allowElseIf: false }],
     "no-unused-vars": "off",
     "prefer-template": "error",
+    "require-await": "error",
   },
   globals: {
     NodeJS: true,

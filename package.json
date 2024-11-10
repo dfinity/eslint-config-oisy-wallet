@@ -1,6 +1,6 @@
 {
   "name": "@dfinity/eslint-config-oisy-wallet",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "license": "Apache-2.0",
   "description": "Shared ESLint configurations from the Oisy Wallet team",
   "repository": {
@@ -12,10 +12,12 @@
   },
   "main": "index.cjs",
   "files": [
+    "README.md",
     "LICENSE",
     "index.cjs",
     "svelte.cjs",
-    "eslint-local-rules.cjs"
+    "eslint-local-rules.cjs",
+    "rules/**/*.cjs"
   ],
   "exports": {
     ".": {
@@ -56,8 +58,8 @@
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "eslint": "^8.57.0",
+    "eslint-config-love": "^84.1.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-local-rules": "^3.0.2",
     "eslint-plugin-n": "^16.6.2",
