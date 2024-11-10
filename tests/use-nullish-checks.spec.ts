@@ -1,6 +1,5 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-
-const rule = require("../eslint-local-rules.cjs")["use-nullish-checks"];
+import rule from "../rules/use-nullish-checks";
 
 const ruleTester = new RuleTester();
 
