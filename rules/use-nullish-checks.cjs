@@ -1,20 +1,10 @@
-import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-
-type NodeType = TSESTree.BinaryExpression;
-
-const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://example.com/rule/${name}`,
-);
-
-export default createRule({
-  name: "use-nullish-checks",
-  defaultOptions: [],
+module.exports = {
   meta: {
     type: "suggestion",
     docs: {
       description: "Enforce the use of isNullish functions for nullish checks",
-      // category: "Best Practices",
-      // recommended: true,
+      category: "Best Practices",
+      recommended: true,
     },
     messages: {
       isNullish:
@@ -27,18 +17,19 @@ export default createRule({
   },
 
   create(context) {
-    const binaryCheck = (node: NodeType) => {
+    const binaryCheck = (node) => {
       if (node.type === "BinaryExpression") {
         return (
           (node.operator === "===" || node.operator === "!==") &&
           ((node.right.type === "Identifier" &&
             node.right.name === "undefined") ||
+            // eslint-disable-next-line local-rules/use-nullish-checks -- This is the statement to check if the right side is null, not undefined
             (node.right.type === "Literal" && node.right.value === null))
         );
       }
     };
 
-    const binaryReportCheck = (node: NodeType) => {
+    const binaryReportCheck = (node) => {
       context.report({
         node,
         messageId: node.operator === "===" ? "isNullish" : "nonNullish",
@@ -59,4 +50,4 @@ export default createRule({
       },
     };
   },
-});
+};
