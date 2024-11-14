@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { nonNullish } = require("@dfinity/utils");
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -12,8 +15,6 @@ module.exports = {
   create(context) {
     const checkForMoreThanOneParameter = (node) => {
       const parent = node.parent;
-
-      const nonNullish = (element) => element !== undefined && element !== null;
 
       // Check if it is a callback for looping methods
       if (
