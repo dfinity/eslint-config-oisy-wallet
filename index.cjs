@@ -63,6 +63,7 @@ module.exports = {
     curly: "error",
     "func-style": "error",
     "local-rules/prefer-object-params": "warn",
+    "local-rules/use-nullish-checks": "warn",
     "local-rules/use-option-type-wrapper": "warn",
     "import/no-duplicates": ["error", { "prefer-inline": true }],
     "import/no-relative-parent-imports": "error",

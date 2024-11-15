@@ -4,4 +4,5 @@ module.exports = {
   "prefer-object-params": require("./rules/prefer-object-params.cjs"),
   "no-relative-imports": require("./rules/no-relative-imports.cjs"),
   "explicit-non-void-return-type": require("./rules/explicit-non-void-return-type.cjs"),
+  "use-nullish-checks": require("./rules/use-nullish-checks.cjs"),
 };
