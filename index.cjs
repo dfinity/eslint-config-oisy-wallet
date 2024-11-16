@@ -21,7 +21,12 @@ module.exports = {
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "eslint-plugin-local-rules", "import"],
+  plugins: [
+    "@typescript-eslint",
+    "eslint-plugin-local-rules",
+    "import",
+    "prefer-arrow",
+  ],
   parserOptions: {
     sourceType: "module",
     ecmaVersion: 2020,
@@ -56,6 +61,7 @@ module.exports = {
     "@typescript-eslint/prefer-reduce-type-parameter": "error",
     "arrow-body-style": ["warn", "as-needed"],
     curly: "error",
+    "func-style": "error",
     "local-rules/prefer-object-params": "warn",
     "local-rules/use-nullish-checks": "warn",
     "local-rules/use-option-type-wrapper": "warn",
@@ -66,6 +72,15 @@ module.exports = {
     "no-delete-var": "error",
     "no-else-return": ["warn", { allowElseIf: false }],
     "no-unused-vars": "off",
+    "prefer-arrow-callback": "error",
+    "prefer-arrow/prefer-arrow-functions": [
+      "error",
+      {
+        disallowPrototype: true,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
+      },
+    ],
     "prefer-template": "error",
     "require-await": "error",
   },
