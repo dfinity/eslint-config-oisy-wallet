@@ -12,6 +12,14 @@ ruleTester.run("use-nullish-checks", rule, {
     {
       code: "nonNullish(bar);",
     },
+    {
+      code: "array.find(item => item) === null;",
+      options: [{ allowFindUndefinedCheck: true }],
+    },
+    {
+      code: "array.find(item => item) !== undefined;",
+      options: [{ allowFindUndefinedCheck: true }],
+    },
   ],
 
   invalid: [
@@ -24,6 +32,18 @@ ruleTester.run("use-nullish-checks", rule, {
       code: "foo !== undefined;",
       errors: [{ messageId: "nonNullish" }],
       output: "nonNullish(foo);",
+    },
+    {
+      code: "array.find(item => item) === null;",
+      errors: [{ messageId: "isNullish" }],
+      output: "isNullish(array.find(item => item));",
+      options: [{ allowFindUndefinedCheck: false }],
+    },
+    {
+      code: "array.find(item => item) !== undefined;",
+      errors: [{ messageId: "nonNullish" }],
+      output: "nonNullish(array.find(item => item));",
+      options: [{ allowFindUndefinedCheck: false }],
     },
   ],
 });
