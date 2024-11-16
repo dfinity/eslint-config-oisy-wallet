@@ -42,12 +42,12 @@ module.exports = {
 
         if (ignoreFind) {
           const isFind =
-              node.left &&
-              node.left.type === "CallExpression" &&
-              node.left.callee &&
-              node.left.callee.type === "MemberExpression" &&
-              node.left.callee.property &&
-              node.left.callee.property.name === "find";
+            node.left &&
+            node.left.type === "CallExpression" &&
+            node.left.callee &&
+            node.left.callee.type === "MemberExpression" &&
+            node.left.callee.property &&
+            node.left.callee.property.name === "find";
 
           if (isFind) {
             return false;
