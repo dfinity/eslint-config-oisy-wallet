@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { nonNullish } = require("@dfinity/utils");
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -9,11 +12,9 @@ module.exports = {
     },
     schema: [],
   },
-  create(context) {
+  create: (context) => {
     const checkForMoreThanOneParameter = (node) => {
       const parent = node.parent;
-
-      const nonNullish = (element) => element !== undefined && element !== null;
 
       // Check if it is a callback for looping methods
       if (
@@ -103,13 +104,13 @@ module.exports = {
     };
 
     return {
-      FunctionDeclaration(node) {
+      FunctionDeclaration: (node) => {
         checkForMoreThanOneParameter(node);
       },
-      FunctionExpression(node) {
+      FunctionExpression: (node) => {
         checkForMoreThanOneParameter(node);
       },
-      ArrowFunctionExpression(node) {
+      ArrowFunctionExpression: (node) => {
         checkForMoreThanOneParameter(node);
       },
     };

@@ -12,18 +12,16 @@ module.exports = {
     },
     schema: [],
   },
-  create(context) {
-    return {
-      ImportDeclaration(node) {
-        const path = node.source.value;
+  create: (context) => ({
+    ImportDeclaration: (node) => {
+      const path = node.source.value;
 
-        if (path.startsWith("./")) {
-          context.report({
-            node,
-            messageId: "noRelativeImports",
-          });
-        }
-      },
-    };
-  },
+      if (path.startsWith("./")) {
+        context.report({
+          node,
+          messageId: "noRelativeImports",
+        });
+      }
+    },
+  }),
 };
