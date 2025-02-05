@@ -27,7 +27,7 @@ module.exports = {
     ],
   },
 
-  create(context) {
+  create: (context) => {
     const options = context.options[0] || {};
     const ignoreFind = options.allowFindUndefinedCheck || false;
 
@@ -62,17 +62,16 @@ module.exports = {
       context.report({
         node,
         messageId: node.operator === "===" ? "isNullish" : "nonNullish",
-        fix(fixer) {
-          return fixer.replaceText(
+        fix: (fixer) =>
+          fixer.replaceText(
             node,
             `${node.operator === "===" ? "isNullish" : "nonNullish"}(${context.sourceCode.getText(node.left)})`,
-          );
-        },
+          ),
       });
     };
 
     return {
-      BinaryExpression(node) {
+      BinaryExpression: (node) => {
         if (binaryCheck(node)) {
           binaryReportCheck(node);
         }

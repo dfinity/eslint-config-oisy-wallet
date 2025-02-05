@@ -13,7 +13,7 @@ module.exports = {
     fixable: "code",
     schema: [],
   },
-  create: function (context) {
+  create: (context) => {
     const checkForOptionType = (node) => {
       if (
         node.typeAnnotation.type === "TSUnionType" &&
@@ -38,12 +38,8 @@ module.exports = {
               data: {
                 type: typeText,
               },
-              fix(fixer) {
-                return fixer.replaceText(
-                  node.typeAnnotation,
-                  `Option<${typeText}>`,
-                );
-              },
+              fix: (fixer) =>
+                fixer.replaceText(node.typeAnnotation, `Option<${typeText}>`),
             });
           } catch (e) {
             // eslint-disable-next-line no-console
@@ -56,10 +52,10 @@ module.exports = {
     };
 
     return {
-      TSTypeAnnotation(node) {
+      TSTypeAnnotation: (node) => {
         checkForOptionType(node);
       },
-      TSTypeAliasDeclaration(node) {
+      TSTypeAliasDeclaration: (node) => {
         checkForOptionType(node);
       },
     };
