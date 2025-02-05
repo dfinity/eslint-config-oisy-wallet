@@ -12,7 +12,7 @@ module.exports = {
     },
     schema: [],
   },
-  create(context) {
+  create: (context) => {
     const checkForMoreThanOneParameter = (node) => {
       const parent = node.parent;
 
@@ -104,13 +104,13 @@ module.exports = {
     };
 
     return {
-      FunctionDeclaration(node) {
+      FunctionDeclaration: (node) => {
         checkForMoreThanOneParameter(node);
       },
-      FunctionExpression(node) {
+      FunctionExpression: (node) => {
         checkForMoreThanOneParameter(node);
       },
-      ArrowFunctionExpression(node) {
+      ArrowFunctionExpression: (node) => {
         checkForMoreThanOneParameter(node);
       },
     };

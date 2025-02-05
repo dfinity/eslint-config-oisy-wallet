@@ -8,22 +8,20 @@ module.exports = {
     },
     schema: [],
   },
-  create(context) {
-    return {
-      ImportDeclaration(node) {
-        const filePath = context.getFilename();
+  create: (context) => ({
+    ImportDeclaration: (node) => {
+      const filePath = context.getFilename();
 
-        const {
-          source: { value },
-        } = node;
+      const {
+        source: { value },
+      } = node;
 
-        if (filePath.includes("/api/") && value === "svelte/store") {
-          context.report({
-            node,
-            message: "Importing 'svelte/store' is not allowed in API modules.",
-          });
-        }
-      },
-    };
-  },
+      if (filePath.includes("/api/") && value === "svelte/store") {
+        context.report({
+          node,
+          message: "Importing 'svelte/store' is not allowed in API modules.",
+        });
+      }
+    },
+  }),
 };
