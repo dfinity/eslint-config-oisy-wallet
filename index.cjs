@@ -44,6 +44,16 @@ module.exports = {
         "prefer-const": "error",
       },
     },
+    {
+      files: ['src/**/*.ts'],
+      excludedFiles: ['*.{test,spec,worker,d}.ts'],
+      rules: {
+        "import/no-unused-modules": [
+          "error",
+          { missingExports: true, unusedExports: true },
+        ],
+      },
+    },
   ],
   rules: {
     "@typescript-eslint/consistent-type-definitions": "error",
