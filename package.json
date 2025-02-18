@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/dfinity/eslint-config-oisy-wallet/issues"
   },
-  "main": "index.cjs",
+  "main": "index.mjs",
   "files": [
     "README.md",
     "LICENSE",
