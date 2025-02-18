@@ -42,7 +42,6 @@ module.exports = {
                 fixer.replaceText(node.typeAnnotation, `Option<${typeText}>`),
             });
           } catch (e) {
-            // eslint-disable-next-line no-console
             console.error(e);
             // eslint-disable-next-line no-console
             console.log(type);

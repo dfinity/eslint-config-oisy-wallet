@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { nonNullish } = require("@dfinity/utils");
 
 module.exports = {
