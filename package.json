@@ -14,8 +14,8 @@
   "files": [
     "README.md",
     "LICENSE",
-    "index.cjs",
-    "svelte.cjs",
+    "index.mjs",
+    "svelte.mjs",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
   ],
