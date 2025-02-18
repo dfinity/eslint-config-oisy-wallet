@@ -1,45 +1,31 @@
-import parser from "svelte-eslint-parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import svelte from "eslint-plugin-svelte";
+import svelteParser from "svelte-eslint-parser";
+import ts from "typescript-eslint";
+import { join } from "node:path";
+import { nonNullish } from "@dfinity/utils";
+import { languageOptions } from "./eslint.language.mjs";
+import { eslintCoreConfig } from "./eslint.core.mjs";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
+const svelteConfig = join(process.cwd(), "svelte.config.js");
 
 export default [
-  ...compat.extends("./index.mjs", "plugin:svelte/recommended"),
-  {
-    languageOptions: {
-      ecmaVersion: 5,
-      sourceType: "script",
-
-      parserOptions: {
-        extraFileExtensions: [".svelte"],
-      },
-    },
-
-    rules: {
-      "local-rules/no-svelte-store-in-api": "error",
-    },
-  },
+  ...eslintCoreConfig,
+  ...svelte.configs["flat/recommended"],
+  ...svelte.configs["flat/prettier"],
+  languageOptions([".svelte"]),
   {
     files: ["**/*.svelte"],
-
     languageOptions: {
-      parser: parser,
-      ecmaVersion: 5,
-      sourceType: "script",
-
+      parser: svelteParser,
       parserOptions: {
-        parser: "@typescript-eslint/parser",
+        parser: ts.parser,
+        ...(nonNullish(svelteConfig) && { svelteConfig }),
       },
     },
+  },
+
+  {
+    files: ["**/*.svelte"],
 
     rules: {
       "import/order": [
@@ -57,6 +43,14 @@ export default [
 
     rules: {
       "no-console": "off",
+    },
+  },
+  {
+    rules: {
+      // TODO: Fix after migration to Svelte v5
+      "no-constant-binary-expression": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
     },
   },
 ];
