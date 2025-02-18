@@ -80,6 +80,6 @@
   "devDependencies": {
     "@types/node": "^22.7.3",
     "@typescript-eslint/rule-tester": "^8.24.1",
-    "vitest": "^2.1.1"
+    "vitest": "^3.0.5"
   }
 }
