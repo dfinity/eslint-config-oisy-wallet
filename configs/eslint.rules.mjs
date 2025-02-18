@@ -30,6 +30,11 @@ export const eslintRules = [
 
     rules: {
       "@typescript-eslint/consistent-type-definitions": "error",
+
+      // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
+      // It should also be introduced as an optional rule.
+      // "@typescript-eslint/consistent-type-imports": "error",
+
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
 
@@ -48,48 +53,34 @@ export const eslintRules = [
       curly: "error",
       "func-style": "error",
       "local-rules/prefer-object-params": "warn",
+
       // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
       // It should also be introduced as an optional rule.
       // "local-rules/use-nullish-checks": "warn",
+
       "local-rules/use-option-type-wrapper": "warn",
-
-      "import/no-duplicates": [
-        "error",
-        {
-          "prefer-inline": true,
-        },
-      ],
-
+      "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
-
-      "no-console": [
-        "error",
-        {
-          allow: ["error", "warn"],
-        },
-      ],
-
+      "no-console": ["error", { allow: ["error", "warn"] }],
       "no-continue": "warn",
       "no-delete-var": "error",
-
-      "no-else-return": [
-        "warn",
-        {
-          allowElseIf: false,
-        },
-      ],
-
+      "no-else-return": ["warn", { allowElseIf: false }],
       "no-unused-vars": "off",
-      "prefer-arrow-callback": "error",
 
-      "prefer-arrow/prefer-arrow-functions": [
-        "error",
-        {
-          disallowPrototype: true,
-          singleReturnOnly: false,
-          classPropertiesAllowed: false,
-        },
-      ],
+      // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
+      // It should also be introduced as an optional rule.
+      // "prefer-arrow-callback": "error",
+
+      // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
+      // It should also be introduced as an optional rule.
+      // "prefer-arrow/prefer-arrow-functions": [
+      // "error",
+      // {
+      //  disallowPrototype: true,
+      //  singleReturnOnly: false,
+      //  classPropertiesAllowed: false,
+      // },
+      // ],
 
       "prefer-template": "error",
       "require-await": "error",
