@@ -51,7 +51,11 @@ export const eslintRules = [
       "@typescript-eslint/prefer-reduce-type-parameter": "error",
       "arrow-body-style": ["warn", "as-needed"],
       curly: "error",
-      "func-style": "error",
+
+      // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
+      // It should also be introduced as an optional rule.
+      // "func-style": "error",
+
       "local-rules/prefer-object-params": "warn",
 
       // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
