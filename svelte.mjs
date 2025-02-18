@@ -3,8 +3,8 @@ import svelteParser from "svelte-eslint-parser";
 import ts from "typescript-eslint";
 import { join } from "node:path";
 import { nonNullish } from "@dfinity/utils";
-import { languageOptions } from "./eslint.language.mjs";
-import { eslintCoreConfig } from "./eslint.core.mjs";
+import { languageOptions } from "./configs/eslint.language.mjs";
+import { eslintCoreConfig } from "./configs/eslint.core.mjs";
 
 const svelteConfig = join(process.cwd(), "svelte.config.js");
 

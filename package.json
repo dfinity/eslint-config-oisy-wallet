@@ -16,10 +16,7 @@
     "LICENSE",
     "index.mjs",
     "svelte.mjs",
-    "eslint.ignore.mjs",
-    "eslint.core.mjs",
-    "eslint.language.mjs",
-    "eslint.rules.mjs",
+    "configs",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
   ],
