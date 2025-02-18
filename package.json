@@ -10,23 +10,24 @@
   "bugs": {
     "url": "https://github.com/dfinity/eslint-config-oisy-wallet/issues"
   },
-  "main": "index.cjs",
+  "main": "index.mjs",
   "files": [
     "README.md",
     "LICENSE",
-    "index.cjs",
-    "svelte.cjs",
+    "index.mjs",
+    "svelte.mjs",
+    "configs",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
   ],
   "exports": {
     ".": {
-      "import": "./index.cjs",
-      "require": "./index.cjs"
+      "import": "./index.mjs",
+      "require": "./index.mjs"
     },
     "./svelte": {
-      "import": "./svelte.cjs",
-      "require": "./svelte.cjs"
+      "import": "./svelte.mjs",
+      "require": "./svelte.mjs"
     },
     "./eslint-local-rules": {
       "import": "./eslint-local-rules.cjs",
@@ -36,7 +37,7 @@
   "scripts": {
     "format": "prettier . --write",
     "format:check": "prettier --check .",
-    "lint": "eslint -c index.cjs . --ext .cjs",
+    "lint": "eslint .",
     "test": "vitest --run"
   },
   "keywords": [
@@ -56,25 +57,29 @@
     "best-practices"
   ],
   "peerDependencies": {
-    "@dfinity/utils": "^2.6.0",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "eslint": "^8.57.0",
-    "eslint-config-love": "^84.1.0",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
+    "@dfinity/utils": "^2.10.0",
+    "@eslint/compat": "^1.2.6",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.20.0",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "eslint": "^9.20.1",
+    "eslint-config-love": "^118.0.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-local-rules": "^3.0.2",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-svelte": "^2.44.0",
-    "prettier": "^3.3.3",
-    "prettier-plugin-organize-imports": "^4.0.0",
+    "eslint-plugin-n": "^17.15.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-svelte": "^2.46.1",
+    "globals": "^15.15.0",
+    "prettier": "^3.5.1",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@types/node": "^22.7.3",
-    "@typescript-eslint/rule-tester": "^8.7.0",
-    "vitest": "^2.1.1"
+    "@typescript-eslint/rule-tester": "^8.24.1",
+    "vitest": "^3.0.5"
   }
 }
