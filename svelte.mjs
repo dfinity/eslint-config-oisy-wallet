@@ -13,6 +13,7 @@ export default [
   ...svelte.configs["flat/recommended"],
   ...svelte.configs["flat/prettier"],
   languageOptions([".svelte"]),
+
   {
     files: ["**/*.svelte"],
     languageOptions: {
@@ -26,7 +27,6 @@ export default [
 
   {
     files: ["**/*.svelte"],
-
     rules: {
       "import/order": [
         "error",
@@ -38,6 +38,14 @@ export default [
       ],
     },
   },
+
+  {
+    rules:{
+      "svelte/shorthand-attribute": ["error"],
+      "svelte/shorthand-directive": ["error"],
+    }
+  },
+
   {
     files: ["scripts/**/*.mjs", "scripts/**/*.ts"],
 
