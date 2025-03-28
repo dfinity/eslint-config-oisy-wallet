@@ -40,10 +40,10 @@ export default [
   },
 
   {
-    rules:{
+    rules: {
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
-    }
+    },
   },
 
   {
