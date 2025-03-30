@@ -41,6 +41,7 @@ export default [
 
   {
     rules: {
+      'svelte/no-extra-reactive-curlies': ['error'],
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
       "svelte/spaced-html-comment": ["error"],
