@@ -43,6 +43,7 @@ export default [
     rules: {
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
+      'svelte/spaced-html-comment': ['error'],
     },
   },
 
