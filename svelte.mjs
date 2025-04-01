@@ -41,6 +41,15 @@ export default [
 
   {
     rules: {
+      "svelte/block-lang": [
+        "error",
+        {
+          enforceScriptPresent: true,
+          enforceStylePresent: true,
+          script: ["ts"],
+          style: ["scss", "postcss"],
+        },
+      ],
       "svelte/no-extra-reactive-curlies": ["error"],
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
