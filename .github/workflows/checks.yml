@@ -18,8 +18,8 @@ jobs:
       - name: Check if commits can be added
         id: check_can_add_commit
         run: |
-          echo "can_add_commit=${{ steps.app-token.outputs.token != ''  }}" >> $GITHUB_OUTPUT
-      - name: Checkout
+          echo "can_add_commit=${{ steps.app-token.outputs.token != '' && github.event_name == 'pull_request' }}" >> $GITHUB_OUTPUT
+      - name: Checkout for pull request
         if: steps.check_can_add_commit.outputs.can_add_commit == 'true'
         uses: actions/checkout@v4
         with:
