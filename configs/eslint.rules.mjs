@@ -94,6 +94,10 @@ export const eslintRules = [
     files: ["**/*.ts"],
 
     rules: {
+      "import/no-unused-modules": [
+        "error",
+        { missingExports: true, unusedExports: true },
+      ],
       "prefer-const": "error",
     },
   },
