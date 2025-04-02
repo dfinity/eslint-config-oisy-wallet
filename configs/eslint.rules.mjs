@@ -70,6 +70,7 @@ export const eslintRules = [
       "no-delete-var": "error",
       "no-else-return": ["warn", { allowElseIf: false }],
       "no-unused-vars": "off",
+      "no-useless-rename": "error",
 
       // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
       // It should also be introduced as an optional rule.
