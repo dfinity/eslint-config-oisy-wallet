@@ -44,8 +44,8 @@ export default [
       "svelte/block-lang": [
         "error",
         {
-          enforceScriptPresent: true,
-          enforceStylePresent: true,
+          enforceScriptPresent: false,
+          enforceStylePresent: false,
           script: ["ts"],
           style: ["scss", "postcss"],
         },
