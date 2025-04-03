@@ -32,7 +32,7 @@ export const eslintRules = [
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
-          fixStyle: "separate-type-imports"
+          fixStyle: "separate-type-imports",
         },
       ],
 
