@@ -60,12 +60,12 @@ module.exports = {
 
 ```javascript
 module.exports = {
-    rules: {
-        // Specify the test files and/or folders
-        files: ['**/*.test.{ts,js}', '**/*.spec.{ts,js}', '**/tests/**/*.{ts,js}'],
+  rules: {
+    // Specify the test files and/or folders
+    files: ["**/*.test.{ts,js}", "**/*.spec.{ts,js}", "**/tests/**/*.{ts,js}"],
 
-        extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
-    },
+    extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
+  },
 };
 ```
 
