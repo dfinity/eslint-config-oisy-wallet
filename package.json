@@ -16,6 +16,7 @@
     "LICENSE",
     "index.mjs",
     "svelte.mjs",
+    "vitest.mjs",
     "configs",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
@@ -28,6 +29,10 @@
     "./svelte": {
       "import": "./svelte.mjs",
       "require": "./svelte.mjs"
+    },
+    "./vitest": {
+      "import": "./vitest.mjs",
+      "require": "./vitest.mjs"
     },
     "./eslint-local-rules": {
       "import": "./eslint-local-rules.cjs",
@@ -62,6 +67,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.20.0",
     "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@vitest/eslint-plugin": "^1.1.39",
     "eslint": "^9.20.1",
     "eslint-config-love": "^118.0.0",
     "eslint-config-prettier": "^10.0.1",
