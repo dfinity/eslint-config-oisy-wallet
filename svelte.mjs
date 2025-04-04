@@ -34,6 +34,7 @@ export default [
           alphabetize: {
             order: "asc",
           },
+          "newlines-between": "never",
         },
       ],
     },
