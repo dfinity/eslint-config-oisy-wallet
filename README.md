@@ -63,11 +63,15 @@ module.exports = {
   overrides: [
     {
       // Specify the test files and/or folders
-      files: ["**/*.test.{ts,js}", "**/*.spec.{ts,js}", "**/tests/**/*.{ts,js}"],
+      files: [
+        "**/*.test.{ts,js}",
+        "**/*.spec.{ts,js}",
+        "**/tests/**/*.{ts,js}",
+      ],
 
       extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
-    }
-  ]
+    },
+  ],
 };
 ```
 
