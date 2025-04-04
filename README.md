@@ -36,13 +36,42 @@ module.exports = {
 };
 ```
 
-For Svelte Projects:
+For [Svelte](https://svelte.dev/) Projects:
 
 1. Create an `.eslintrc.js` file in your project root and extend the Svelte-specific configuration:
 
 ```javascript
 module.exports = {
   extends: ["@dfinity/eslint-config-oisy-wallet/svelte"],
+};
+```
+
+For [vitest](https://vitest.dev/) test suites:
+
+1. Create an `.eslintrc.js` file in your project root and extend the vitest-specific configuration:
+
+```javascript
+module.exports = {
+  extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
+};
+```
+
+2. If the rules must apply ONLY to test files, they can be configured as:
+
+```javascript
+module.exports = {
+  overrides: [
+    {
+      // Specify the test files and/or folders
+      files: [
+        "**/*.test.{ts,js}",
+        "**/*.spec.{ts,js}",
+        "**/tests/**/*.{ts,js}",
+      ],
+
+      extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
+    },
+  ],
 };
 ```
 
