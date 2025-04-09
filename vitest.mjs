@@ -4,6 +4,6 @@ import { eslintCoreConfig } from "./configs/eslint.core.mjs";
 
 export default [
   ...eslintCoreConfig,
-  ...vitest.configs.recommended,
+  { plugins: { vitest }, rules: { ...vitest.configs.recommended.rules } },
   languageOptions(),
 ];
