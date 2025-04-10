@@ -4,6 +4,13 @@ import { eslintCoreConfig } from "./configs/eslint.core.mjs";
 
 export default [
   ...eslintCoreConfig,
-  { plugins: { vitest }, rules: { ...vitest.configs.recommended.rules } },
+  {
+    plugins: { vitest },
+    rules: {
+      ...vitest.configs.recommended.rules,
+
+      "vitest/prefer-hooks-in-order": ["error"],
+    },
+  },
   languageOptions(),
 ];
