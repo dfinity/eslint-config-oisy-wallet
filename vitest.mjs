@@ -10,6 +10,7 @@ export default [
       ...vitest.configs.recommended.rules,
 
       "vitest/no-duplicate-hooks": ["error"],
+      "vitest/padding-around-all": ["error"],
     },
   },
   languageOptions(),
