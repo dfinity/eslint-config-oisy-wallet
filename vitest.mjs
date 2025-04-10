@@ -16,6 +16,7 @@ export default [
       "vitest/prefer-to-be-falsy": ["error"],
       "vitest/prefer-to-be-object": ["error"],
       "vitest/prefer-to-be-truthy": ["error"],
+      "vitest/prefer-to-contain": ["error"],
       "vitest/prefer-to-have-length": ["error"],
     },
   },
