@@ -13,6 +13,7 @@ export default [
       "vitest/padding-around-all": ["error"],
       "vitest/prefer-hooks-in-order": ["error"],
       "vitest/prefer-hooks-on-top": ["error"],
+      "vitest/prefer-to-have-length": ["error"],
     },
   },
   languageOptions(),
