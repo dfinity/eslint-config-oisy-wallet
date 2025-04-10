@@ -9,6 +9,9 @@ export default [
     rules: {
       ...vitest.configs.recommended.rules,
 
+      "vitest/no-duplicate-hooks": ["error"],
+      "vitest/padding-around-all": ["error"],
+      "vitest/prefer-hooks-in-order": ["error"],
       "vitest/prefer-hooks-on-top": ["error"],
     },
   },

@@ -29,17 +29,7 @@ export const eslintRules = [
     },
 
     rules: {
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        {
-          fixStyle: "separate-type-imports",
-        },
-      ],
-
-      // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
-      // It should also be introduced as an optional rule.
-      // "@typescript-eslint/consistent-type-imports": "error",
-
+      "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
 
