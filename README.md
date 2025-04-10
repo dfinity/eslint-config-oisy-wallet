@@ -36,13 +36,42 @@ module.exports = {
 };
 ```
 
-For Svelte Projects:
+For [Svelte](https://svelte.dev/) Projects:
 
 1. Create an `.eslintrc.js` file in your project root and extend the Svelte-specific configuration:
 
 ```javascript
 module.exports = {
   extends: ["@dfinity/eslint-config-oisy-wallet/svelte"],
+};
+```
+
+For [vitest](https://vitest.dev/) test suites:
+
+1. Create an `.eslintrc.js` file in your project root and extend the vitest-specific configuration:
+
+```javascript
+module.exports = {
+  extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
+};
+```
+
+2. If the rules must apply ONLY to test files, they can be configured as:
+
+```javascript
+module.exports = {
+  overrides: [
+    {
+      // Specify the test files and/or folders
+      files: [
+        "**/*.test.{ts,js}",
+        "**/*.spec.{ts,js}",
+        "**/tests/**/*.{ts,js}",
+      ],
+
+      extends: ["@dfinity/eslint-config-oisy-wallet/vitest"],
+    },
+  ],
 };
 ```
 
@@ -54,6 +83,30 @@ module.exports = require("@dfinity/eslint-config-oisy-wallet/eslint-local-rules"
 
 > [!NOTE]
 > This is necessary because the `eslint-plugin-local-rules` plugin we use for custom rules requires a file located at the root and does not offer any customizable location option.
+
+## 🔧 Overriding or Disabling Rules
+
+You can override or disable any of the rules provided by this configuration — including custom **local rules** — just like you would with any ESLint config.
+
+In your `.eslintrc.js`, simply add a `rules` section:
+
+```javascript
+module.exports = {
+  extends: ["@dfinity/eslint-config-oisy-wallet/svelte"],
+  rules: {
+    // Disable a built-in rule
+    "no-console": "off",
+
+    // Disable a local custom rule
+    "local/use-nullish-checks": "off",
+
+    // Customize severity or options
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+  },
+};
+```
+
+Note: To override local rules, make sure you have the `eslint-local-rules.cjs` file at the root as described above.
 
 ## 🛠️ TypeScript Support
 

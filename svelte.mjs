@@ -34,6 +34,7 @@ export default [
           alphabetize: {
             order: "asc",
           },
+          "newlines-between": "never",
         },
       ],
     },
@@ -41,6 +42,15 @@ export default [
 
   {
     rules: {
+      "svelte/block-lang": [
+        "error",
+        {
+          enforceScriptPresent: false,
+          enforceStylePresent: false,
+          script: ["ts"],
+          style: ["scss", "postcss"],
+        },
+      ],
       "svelte/no-extra-reactive-curlies": ["error"],
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],

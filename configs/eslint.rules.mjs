@@ -29,7 +29,12 @@ export const eslintRules = [
     },
 
     rules: {
-      "@typescript-eslint/consistent-type-definitions": "error",
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          fixStyle: "separate-type-imports",
+        },
+      ],
 
       // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
       // It should also be introduced as an optional rule.
@@ -65,11 +70,13 @@ export const eslintRules = [
       "local-rules/use-option-type-wrapper": "warn",
       "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
+      "object-shorthand": "error",
       "no-console": ["error", { allow: ["error", "warn"] }],
       "no-continue": "warn",
       "no-delete-var": "error",
       "no-else-return": ["warn", { allowElseIf: false }],
       "no-unused-vars": "off",
+      "no-useless-rename": "error",
 
       // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
       // It should also be introduced as an optional rule.
