@@ -14,6 +14,7 @@ export default [
       "vitest/prefer-hooks-in-order": ["error"],
       "vitest/prefer-hooks-on-top": ["error"],
       "vitest/prefer-to-be-object": ["error"],
+      "vitest/prefer-to-have-length": ["error"],
     },
   },
   languageOptions(),
