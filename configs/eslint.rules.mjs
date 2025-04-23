@@ -30,6 +30,7 @@ export const eslintRules = [
 
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
 
@@ -61,6 +62,7 @@ export const eslintRules = [
       "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
       "object-shorthand": "error",
+      "prefer-destructuring": "error",
       "no-console": ["error", { allow: ["error", "warn"] }],
       "no-continue": "warn",
       "no-delete-var": "error",

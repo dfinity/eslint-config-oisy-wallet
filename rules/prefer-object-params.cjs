@@ -13,7 +13,7 @@ module.exports = {
   },
   create: (context) => {
     const checkForMoreThanOneParameter = (node) => {
-      const parent = node.parent;
+      const { parent } = node;
 
       // Check if it is a callback for looping methods
       if (
