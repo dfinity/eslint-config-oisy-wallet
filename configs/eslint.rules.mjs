@@ -30,6 +30,7 @@ export const eslintRules = [
 
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
 
