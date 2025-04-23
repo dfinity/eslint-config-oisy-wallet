@@ -62,6 +62,7 @@ export const eslintRules = [
       "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
       "object-shorthand": "error",
+      "prefer-destructuring": "error",
       "no-console": ["error", { allow: ["error", "warn"] }],
       "no-continue": "warn",
       "no-delete-var": "error",
