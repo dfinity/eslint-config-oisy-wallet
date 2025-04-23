@@ -42,7 +42,7 @@
   "scripts": {
     "format": "prettier . --write",
     "format:check": "prettier --check .",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "test": "vitest --run"
   },
   "keywords": [
