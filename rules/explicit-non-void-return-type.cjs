@@ -38,7 +38,7 @@ const inferReturnType = (node) => {
 };
 
 const checkReturnType = ({ node, context }) => {
-  const returnType = node.returnType;
+  const { returnType } = node;
 
   if (!returnType) {
     const inferredType = inferReturnType(node);
