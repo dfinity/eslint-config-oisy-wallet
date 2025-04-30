@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { isNullish } from "@dfinity/utils";
 
 // The suffix we use to publish to npm wip version of the libs
 const SUFFIX = "next";
@@ -12,7 +13,7 @@ const nextVersion = async ({ project, currentVersion }) => {
   ).json();
 
   // The wip version has never been published
-  if (versions[version] === undefined) {
+  if (isNullish(versions[version])) {
     return version;
   }
 
@@ -27,6 +28,7 @@ const updateVersion = async () => {
   const packagePath = join(process.cwd(), "package.json");
 
   if (!existsSync(packagePath)) {
+    // eslint-disable-next-line no-console
     console.log(`Target ${packagePath} does not exist.`);
     return;
   }
