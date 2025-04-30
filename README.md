@@ -109,25 +109,28 @@ module.exports = {
 Or in `eslint.config.ts`, adding an object with the `rules` property:
 
 ```typescript
-import { default as svelteConfig } from '@dfinity/eslint-config-oisy-wallet/svelte';
-import { default as vitestConfig } from '@dfinity/eslint-config-oisy-wallet/vitest';
+import { default as svelteConfig } from "@dfinity/eslint-config-oisy-wallet/svelte";
+import { default as vitestConfig } from "@dfinity/eslint-config-oisy-wallet/vitest";
 
 export default [
-    ...vitestConfig,
-    ...svelteConfig,
-    {
-        rules: {
-            // Disable a built-in rule
-            "no-console": "off",
-            'vitest/expect-expect': 'off',
+  ...vitestConfig,
+  ...svelteConfig,
+  {
+    rules: {
+      // Disable a built-in rule
+      "no-console": "off",
+      "vitest/expect-expect": "off",
 
-            // Disable a local custom rule
-            "local/use-nullish-checks": "off",
+      // Disable a local custom rule
+      "local/use-nullish-checks": "off",
 
-            // Customize severity or options
-            "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-        }
-    }
+      // Customize severity or options
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_" },
+      ],
+    },
+  },
 ];
 ```
 
