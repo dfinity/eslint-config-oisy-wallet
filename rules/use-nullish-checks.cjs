@@ -37,7 +37,6 @@ module.exports = {
           (node.operator === "===" || node.operator === "!==") &&
           ((node.right.type === "Identifier" &&
             node.right.name === "undefined") ||
-            // eslint-disable-next-line local-rules/use-nullish-checks -- This is the statement to check if the right side is null, not undefined
             (node.right.type === "Literal" && node.right.value === null));
 
         if (ignoreFind) {
