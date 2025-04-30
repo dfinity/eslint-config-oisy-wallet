@@ -69,16 +69,14 @@ export const eslintRules = [
       "no-useless-rename": "error",
       "prefer-arrow-callback": "error",
 
-      // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
-      // It should also be introduced as an optional rule.
-      // "prefer-arrow/prefer-arrow-functions": [
-      // "error",
-      // {
-      //  disallowPrototype: true,
-      //  singleReturnOnly: false,
-      //  classPropertiesAllowed: false,
-      // },
-      // ],
+      "prefer-arrow/prefer-arrow-functions": [
+        "error",
+        {
+          disallowPrototype: true,
+          singleReturnOnly: false,
+          classPropertiesAllowed: false,
+        },
+      ],
 
       "prefer-template": "error",
       "require-await": "error",
