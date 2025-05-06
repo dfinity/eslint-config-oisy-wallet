@@ -11,6 +11,7 @@ export default [
 
       "vitest/no-alias-methods": ["error"],
       "vitest/no-duplicate-hooks": ["error"],
+      "vitest/no-standalone-expect": ["error"],
       "vitest/padding-around-all": ["error"],
       "vitest/prefer-comparison-matcher": ["error"],
       "vitest/prefer-each": ["error"],
