@@ -21,6 +21,7 @@ export default [
       "vitest/prefer-to-be-truthy": ["error"],
       "vitest/prefer-to-contain": ["error"],
       "vitest/prefer-to-have-length": ["error"],
+      "vitest/require-top-level-describe": ["error"],
     },
   },
   languageOptions(),
