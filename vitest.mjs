@@ -14,6 +14,7 @@ export default [
       "vitest/padding-around-all": ["error"],
       "vitest/prefer-comparison-matcher": ["error"],
       "vitest/prefer-each": ["error"],
+      "vitest/prefer-equality-matcher": ["error"],
       "vitest/prefer-hooks-in-order": ["error"],
       "vitest/prefer-hooks-on-top": ["error"],
       "vitest/prefer-to-be-falsy": ["error"],
