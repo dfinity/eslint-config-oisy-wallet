@@ -43,7 +43,7 @@ module.exports = {
           "reduce",
           "reduceRight",
           "slice",
-          'some',
+          "some",
           "splice",
           "toLocaleString",
           "toSpliced",
