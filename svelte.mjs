@@ -52,6 +52,7 @@ export default [
         },
       ],
       "svelte/no-extra-reactive-curlies": ["error"],
+      "svelte/require-event-prefix": ["error"],
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
       "svelte/spaced-html-comment": ["error"],
