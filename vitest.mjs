@@ -19,6 +19,7 @@ export default [
       "vitest/prefer-expect-resolves": ["error"],
       "vitest/prefer-hooks-in-order": ["error"],
       "vitest/prefer-hooks-on-top": ["error"],
+      "vitest/prefer-mock-promise-shorthand": ["error"],
       "vitest/prefer-to-be-falsy": ["error"],
       "vitest/prefer-to-be-object": ["error"],
       "vitest/prefer-to-be-truthy": ["error"],
