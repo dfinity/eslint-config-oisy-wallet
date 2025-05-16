@@ -34,7 +34,6 @@ export const eslintRules = [
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
-      "@typescript-eslint/no-unnecessary-condition": "error",
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
       "@typescript-eslint/no-unused-vars": [
         "warn",
