@@ -52,6 +52,12 @@ export default [
         },
       ],
       "svelte/no-extra-reactive-curlies": ["error"],
+      "svelte/prefer-const": [
+        "error",
+        {
+          excludedRunes: ["$props", "$derived", "$state"],
+        },
+      ],
       "svelte/require-event-prefix": ["error"],
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
