@@ -88,5 +88,10 @@
     "@types/node": "^22.13.8",
     "@typescript-eslint/rule-tester": "^8.25.0",
     "vitest": "^3.0.7"
+  },
+  "overrides": {
+    "@dfinity/agent": "^3.0.0-beta.1",
+    "@dfinity/candid": "^3.0.0-beta.1",
+    "@dfinity/principal": "^3.0.0-beta.1"
   }
 }
