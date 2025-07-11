@@ -86,7 +86,7 @@ module.exports = require("@dfinity/eslint-config-oisy-wallet/eslint-local-rules"
 
 ## 🔧 Overriding, Enabling, or Disabling Rules
 
-You can override or disable any of the rules provided by this configuration — including custom **local rules** — just like you would with any ESLint config.
+You can override, enable, or disable any of the rules provided by this configuration — including custom **local rules** — just like you would with any ESLint config.
 
 In your `.eslintrc.js`, simply add a `rules` section:
 
