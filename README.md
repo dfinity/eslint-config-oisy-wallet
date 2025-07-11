@@ -84,7 +84,7 @@ module.exports = require("@dfinity/eslint-config-oisy-wallet/eslint-local-rules"
 > [!NOTE]
 > This is necessary because the `eslint-plugin-local-rules` plugin we use for custom rules requires a file located at the root and does not offer any customizable location option.
 
-## 🔧 Overriding or Disabling Rules
+## 🔧 Overriding, Enabling, or Disabling Rules
 
 You can override or disable any of the rules provided by this configuration — including custom **local rules** — just like you would with any ESLint config.
 
@@ -99,6 +99,9 @@ module.exports = {
 
     // Disable a local custom rule
     "local/use-nullish-checks": "off",
+
+    // Enable a built-in rule
+    "local-rules/prefer-object-params": "warn",
 
     // Customize severity or options
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
@@ -123,6 +126,9 @@ export default [
 
       // Disable a local custom rule
       "local/use-nullish-checks": "off",
+
+      // Enable a built-in rule
+      "local-rules/prefer-object-params": "warn",
 
       // Customize severity or options
       "@typescript-eslint/no-unused-vars": [

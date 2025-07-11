@@ -51,8 +51,6 @@ export const eslintRules = [
       curly: "error",
       "func-style": "error",
 
-      "local-rules/prefer-object-params": "warn",
-
       // TODO: Disabled for now to allow the migration of ESLint v9 in OISY, as the rule is not yet enforced.
       // It should also be introduced as an optional rule.
       // "local-rules/use-nullish-checks": "warn",
