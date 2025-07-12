@@ -4,7 +4,7 @@ module.exports = {
     docs: {
       description: "Enforce use of Option<T> instead of T | null | undefined",
       category: "Best Practices",
-      recommended: true,
+      recommended: false,
     },
     messages: {
       useOption:
