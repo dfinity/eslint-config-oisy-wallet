@@ -4,7 +4,7 @@ module.exports = {
     docs: {
       description: "Enforce the use of isNullish functions for nullish checks",
       category: "Best Practices",
-      recommended: true,
+      recommended: false,
     },
     messages: {
       isNullish:
