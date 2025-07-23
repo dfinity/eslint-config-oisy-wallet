@@ -27,6 +27,7 @@ export default [
       "vitest/prefer-to-have-length": ["error"],
       "vitest/prefer-todo": ["error"],
       "vitest/require-top-level-describe": ["error"],
+      "vitest/valid-expect-in-promise": ["error"],
     },
   },
   languageOptions(),
