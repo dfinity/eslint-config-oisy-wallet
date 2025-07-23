@@ -11,6 +11,7 @@ export default [
 
       "vitest/no-alias-methods": ["error"],
       "vitest/no-duplicate-hooks": ["error"],
+      "vitest/no-importing-vitest-globals": ["error"],
       "vitest/no-test-prefixes": ["error"],
       "vitest/no-test-return-statement": ["error"],
       "vitest/padding-around-all": ["error"],
