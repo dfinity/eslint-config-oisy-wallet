@@ -85,7 +85,7 @@
     "typescript": "^5"
   },
   "devDependencies": {
-    "@types/node": "^22.13.8",
+    "@types/node": "^24.1.0",
     "@typescript-eslint/rule-tester": "^8.25.0",
     "vitest": "^3.0.7"
   }
