@@ -31,6 +31,7 @@ export default [
       "vitest/prefer-todo": ["error"],
       "vitest/prefer-vi-mocked": ["error"],
       "vitest/require-top-level-describe": ["error"],
+      "vitest/valid-expect-in-promise": ["error"],
     },
   },
   languageOptions(),
