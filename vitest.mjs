@@ -11,6 +11,8 @@ export default [
 
       "vitest/no-alias-methods": ["error"],
       "vitest/no-duplicate-hooks": ["error"],
+      "vitest/no-importing-vitest-globals": ["error"],
+      "vitest/no-test-prefixes": ["error"],
       "vitest/no-test-return-statement": ["error"],
       "vitest/padding-around-all": ["error"],
       "vitest/prefer-comparison-matcher": ["error"],
@@ -27,6 +29,7 @@ export default [
       "vitest/prefer-to-contain": ["error"],
       "vitest/prefer-to-have-length": ["error"],
       "vitest/prefer-todo": ["error"],
+      "vitest/prefer-vi-mocked": ["error"],
       "vitest/require-top-level-describe": ["error"],
     },
   },
