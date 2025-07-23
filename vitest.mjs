@@ -14,6 +14,7 @@ export default [
       "vitest/no-test-return-statement": ["error"],
       "vitest/padding-around-all": ["error"],
       "vitest/prefer-comparison-matcher": ["error"],
+      "vitest/prefer-called-once": ["error"],
       "vitest/prefer-each": ["error"],
       "vitest/prefer-equality-matcher": ["error"],
       "vitest/prefer-expect-resolves": ["error"],
