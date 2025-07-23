@@ -28,6 +28,7 @@ export default [
       "vitest/prefer-to-contain": ["error"],
       "vitest/prefer-to-have-length": ["error"],
       "vitest/prefer-todo": ["error"],
+      "vitest/prefer-vi-mocked": ["error"],
       "vitest/require-top-level-describe": ["error"],
     },
   },
