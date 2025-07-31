@@ -61,6 +61,7 @@ export default [
       "svelte/require-event-prefix": ["error"],
       "svelte/shorthand-attribute": ["error"],
       "svelte/shorthand-directive": ["error"],
+      "svelte/sort-attributes": ["error"],
       "svelte/spaced-html-comment": ["error"],
     },
   },
