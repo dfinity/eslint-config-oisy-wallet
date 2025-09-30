@@ -28,6 +28,8 @@ export default [
   {
     files: ["**/*.svelte"],
     rules: {
+        'import/no-relative-parent-imports': 'error',
+        'import/no-relative-packages': 'error',
       "import/order": [
         "error",
         {
