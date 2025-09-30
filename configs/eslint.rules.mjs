@@ -53,7 +53,6 @@ export const eslintRules = [
 
       "local-rules/prefer-object-params": "warn",
 
-      "import/no-cycle": "error",
       "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
 
@@ -84,6 +83,7 @@ export const eslintRules = [
     files: ["**/*.ts"],
 
     rules: {
+      "import/no-cycle": "error",
       "prefer-const": "error",
     },
   },
