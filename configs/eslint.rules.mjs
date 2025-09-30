@@ -53,6 +53,7 @@ export const eslintRules = [
 
       "local-rules/prefer-object-params": "warn",
 
+      "import/no-cycle": "error",
       "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
 
