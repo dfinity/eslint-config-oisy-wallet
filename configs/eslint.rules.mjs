@@ -21,6 +21,7 @@ const gitignorePath = resolveGitIgnorePath();
 
 export const eslintRules = [
   ...(nonNullish(gitignorePath) ? [includeIgnoreFile(gitignorePath)] : []),
+
   {
     plugins: {
       "local-rules": localRules,
@@ -35,7 +36,6 @@ export const eslintRules = [
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
-      "@typescript-eslint/no-unnecessary-type-assertion": "error",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -76,14 +76,26 @@ export const eslintRules = [
       ],
 
       "prefer-template": "error",
-      "require-await": "error",
     },
   },
+
   {
     files: ["**/*.ts"],
 
     rules: {
       "prefer-const": "error",
+    },
+  },
+
+  {
+    files: ["**/*.{js,cjs,mjs}"],
+
+    rules: {
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
     },
   },
 ];

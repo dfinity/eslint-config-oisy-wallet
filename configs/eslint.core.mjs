@@ -6,7 +6,7 @@ import { eslintIgnore } from "./eslint.ignore.mjs";
 
 export const eslintCoreConfig = [
   js.configs.recommended,
-  ...ts.configs.recommended,
+  ...ts.configs.recommendedTypeChecked,
   prettier,
   ...eslintRules,
   ...eslintIgnore,

@@ -73,6 +73,7 @@ export default [
       "no-console": "off",
     },
   },
+
   {
     rules: {
       // TODO: Fix after migration to Svelte v5
