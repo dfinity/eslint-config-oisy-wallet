@@ -88,7 +88,7 @@ export const eslintRules = [
   },
 
   {
-    files: ["**/*.{js,cjs,mjs}"],
+    files: ["**/*.{ts,js,cjs,mjs}"],
 
     rules: {
       "@typescript-eslint/no-unsafe-argument": "off",
