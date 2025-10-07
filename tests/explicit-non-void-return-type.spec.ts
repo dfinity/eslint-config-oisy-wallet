@@ -1,11 +1,9 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- We are importing a JS module, so we cannot type this properly for now
 const rule = require("../rules/explicit-non-void-return-type.cjs");
 
 const ruleTester = new RuleTester();
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- We are importing a JS module, so we cannot type this properly for now
 ruleTester.run("explicit-non-void-return-type", rule, {
   valid: [
     // Test for implied void returns
