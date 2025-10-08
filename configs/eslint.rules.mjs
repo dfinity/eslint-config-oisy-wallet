@@ -64,6 +64,7 @@ export const eslintRules = [
       "no-else-return": ["warn", { allowElseIf: false }],
       "no-unused-vars": "off",
       "no-useless-rename": "error",
+      "no-useless-return": "error",
       "prefer-arrow-callback": "error",
 
       "prefer-arrow/prefer-arrow-functions": [
