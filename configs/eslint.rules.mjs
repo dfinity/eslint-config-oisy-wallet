@@ -19,6 +19,27 @@ const resolveGitIgnorePath = () => {
 
 const gitignorePath = resolveGitIgnorePath();
 
+/**
+ * The rules below are part of the typescript-eslint `recommended-type-checked` ruleset.
+ *
+ * If at some point we have enough of them, we can switch the ruleset on,
+ * turn off the ones that we don't want, and remove this section.
+ *
+ * @link {https://typescript-eslint.io/users/configs/#recommended-type-checked}
+ * @link {https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslintrc/recommended-type-checked.ts}
+ */
+const partialTypeCheckedRules = {
+  "@typescript-eslint/no-unnecessary-type-assertion": "error",
+  "@typescript-eslint/no-unused-vars": [
+    "warn",
+    {
+      argsIgnorePattern: "^_",
+      varsIgnorePattern: "^_",
+      caughtErrorsIgnorePattern: "^_",
+    },
+  ],
+};
+
 export const eslintRules = [
   ...(nonNullish(gitignorePath) ? [includeIgnoreFile(gitignorePath)] : []),
   {
@@ -29,21 +50,14 @@ export const eslintRules = [
     },
 
     rules: {
+      ...partialTypeCheckedRules,
+
       "@typescript-eslint/consistent-type-definitions": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
-      "@typescript-eslint/no-unnecessary-type-assertion": "error",
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_",
-        },
-      ],
       "@typescript-eslint/prefer-nullish-coalescing": "error",
       "@typescript-eslint/prefer-reduce-type-parameter": "error",
 
@@ -64,6 +78,7 @@ export const eslintRules = [
       "no-else-return": ["warn", { allowElseIf: false }],
       "no-unused-vars": "off",
       "no-useless-rename": "error",
+      "no-useless-return": "error",
       "prefer-arrow-callback": "error",
 
       "prefer-arrow/prefer-arrow-functions": [
@@ -79,6 +94,7 @@ export const eslintRules = [
       "require-await": "error",
     },
   },
+
   {
     files: ["**/*.ts"],
 
