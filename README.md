@@ -56,6 +56,16 @@ module.exports = {
 };
 ```
 
+For [yaml](https://yaml.org/) test suites:
+
+1. Create an `.eslintrc.js` file in your project root and extend the yaml-specific configuration:
+
+```javascript
+module.exports = {
+  extends: ["@dfinity/eslint-config-oisy-wallet/yaml"],
+};
+```
+
 2. If the rules must apply ONLY to test files, they can be configured as:
 
 ```javascript
@@ -114,10 +124,12 @@ Or in `eslint.config.ts`, adding an object with the `rules` property:
 ```typescript
 import { default as svelteConfig } from "@dfinity/eslint-config-oisy-wallet/svelte";
 import { default as vitestConfig } from "@dfinity/eslint-config-oisy-wallet/vitest";
+import { default as yamlConfig } from "@dfinity/eslint-config-oisy-wallet/yaml";
 
 export default [
   ...vitestConfig,
   ...svelteConfig,
+  ...yamlConfig,
   {
     rules: {
       // Disable a built-in rule
