@@ -99,6 +99,7 @@ export const eslintRules = [
     files: ["**/*.ts"],
 
     rules: {
+      "import/no-cycle": "error",
       "prefer-const": "error",
     },
   },
