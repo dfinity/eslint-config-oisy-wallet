@@ -76,6 +76,18 @@ export const eslintRules = [
       "no-continue": "warn",
       "no-delete-var": "error",
       "no-else-return": ["warn", { allowElseIf: false }],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/dist/**"],
+              message:
+                "Do not import directly from a package's /dist/ folder. Use the package's public entry point instead.",
+            },
+          ],
+        },
+      ],
       "no-unused-vars": "off",
       "no-useless-rename": "error",
       "no-useless-return": "error",
