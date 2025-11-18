@@ -86,6 +86,40 @@ export const eslintRules = [
                 "Do not import directly from a package's /dist/ folder. Use the package's public entry point instead.",
             },
           ],
+          paths: [
+            {
+              name: "@dfinity/ckbtc",
+              message: "Use @icp-sdk/canisters/ckbtc instead.",
+            },
+            {
+              name: "@dfinity/cketh",
+              message: "Use @icp-sdk/canisters/cketh instead.",
+            },
+            {
+              name: "@dfinity/cmc",
+              message: "Use @icp-sdk/canisters/cmc instead.",
+            },
+            {
+              name: "@dfinity/ic-management",
+              message: "Use @icp-sdk/canisters/ic-management instead.",
+            },
+            {
+              name: "@dfinity/ledger-icp",
+              message: "Use @icp-sdk/canisters/ledger/icp instead.",
+            },
+            {
+              name: "@dfinity/ledger-icrc",
+              message: "Use @icp-sdk/canisters/ledger/icrc instead.",
+            },
+            {
+              name: "@dfinity/nns",
+              message: "Use @icp-sdk/canisters/nns instead.",
+            },
+            {
+              name: "@dfinity/sns",
+              message: "Use @icp-sdk/canisters/sns instead.",
+            },
+          ],
         },
       ],
       "no-unused-vars": "off",
