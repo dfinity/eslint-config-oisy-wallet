@@ -1,6 +1,6 @@
 {
   "name": "@dfinity/eslint-config-oisy-wallet",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "Apache-2.0",
   "description": "Shared ESLint configurations from the Oisy Wallet team",
   "repository": {
@@ -85,9 +85,9 @@
     "typescript": "^5"
   },
   "devDependencies": {
-    "@types/node": "^24.3.0",
-    "@typescript-eslint/rule-tester": "^8.25.0",
-    "vitest": "^3.0.7"
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/rule-tester": "^8.47.0",
+    "vitest": "^4.0.10"
   },
   "engines": {
     "node": ">=22",
