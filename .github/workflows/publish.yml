@@ -5,32 +5,52 @@ on:
     types: [released]
   workflow_dispatch:
 
+run-name: >-
+  ${{
+    github.event_name == 'release' && format('Publish {0}', github.event.release.tag_name)
+    || github.event_name == 'workflow_dispatch' && 'Publish Next'
+    || 'Publish Release' }}
+
 jobs:
-  publish:
+  publish-release:
     if: github.event_name == 'release'
+
     runs-on: ubuntu-latest
+
     environment: release
+
     permissions:
       contents: read
       id-token: write
+
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
+
       - name: Prepare
         uses: ./.github/actions/prepare
+
       - run: npm publish --provenance --access public
 
   publish-next:
     if: github.event_name == 'workflow_dispatch'
+
     runs-on: ubuntu-latest
+
     environment: release
+
     permissions:
       contents: read
       id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Prepare
         uses: ./.github/actions/prepare
+
       - name: Build next version
         run: ./scripts/build-next
+
       - run: npm publish --provenance --access public --tag next
