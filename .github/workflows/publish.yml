@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v5
       - name: Prepare
         uses: ./.github/actions/prepare
-      - run: npm publish --provenance --access public
+      - run: npm publish --access public
 
   publish-next:
     if: github.event_name == 'workflow_dispatch'
@@ -33,4 +33,4 @@ jobs:
         uses: ./.github/actions/prepare
       - name: Build next version
         run: ./scripts/build-next
-      - run: npm publish --provenance --access public --tag next
+      - run: npm publish --access public --tag next
