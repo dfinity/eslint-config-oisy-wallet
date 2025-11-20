@@ -1,5 +1,4 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-
 const rule = require("../rules/no-relative-imports.cjs");
 
 const ruleTester = new RuleTester();
