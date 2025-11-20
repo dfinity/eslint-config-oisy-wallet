@@ -67,6 +67,22 @@ export const eslintRules = [
 
       "local-rules/prefer-object-params": "warn",
 
+      // We want to enforce ONLY `'newlines-between': 'never'`. The order/sorting is handled elsewhere.
+      "import/order": [
+        "error",
+        {
+          // disable all default grouping behaviour
+          groups: [],
+
+          // disable alphabetising
+          alphabetize: {
+            order: "ignore",
+            caseInsensitive: false,
+          },
+
+          "newlines-between": "never",
+        },
+      ],
       "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
 

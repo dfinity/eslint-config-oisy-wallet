@@ -1,5 +1,4 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-
 const rule = require("../rules/use-option-type-wrapper.cjs");
 
 const ruleTester = new RuleTester();
