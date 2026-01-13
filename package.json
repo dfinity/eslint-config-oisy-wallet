@@ -17,6 +17,7 @@
     "index.mjs",
     "svelte.mjs",
     "vitest.mjs",
+    "yaml.mjs",
     "configs",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
@@ -33,6 +34,10 @@
     "./vitest": {
       "import": "./vitest.mjs",
       "require": "./vitest.mjs"
+    },
+    "./yaml": {
+      "import": "./yaml.mjs",
+      "require": "./yaml.mjs"
     },
     "./eslint-local-rules": {
       "import": "./eslint-local-rules.cjs",
@@ -79,6 +84,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-svelte": "^3",
+    "eslint-plugin-yml": "^1.18.0",
     "globals": "^16.3.0",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.1.0",
