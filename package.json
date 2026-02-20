@@ -63,7 +63,7 @@
     "best-practices"
   ],
   "peerDependencies": {
-    "@dfinity/utils": "^4.1.0",
+    "@dfinity/utils": "*",
     "@eslint/compat": "^2.0.2",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
@@ -82,7 +82,7 @@
     "globals": "^17.3.0",
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
