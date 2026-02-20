@@ -5,7 +5,7 @@ description: Checkout and install dependencies
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v6
+    - uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v6.2.0
       with:
         node-version: 24
         registry-url: "https://registry.npmjs.org"
