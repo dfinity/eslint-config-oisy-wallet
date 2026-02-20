@@ -3,9 +3,13 @@ name: Checks
 on:
   pull_request:
 
+permissions: {}
+
 jobs:
   format:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Create GitHub App Token
@@ -56,6 +60,8 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
@@ -67,6 +73,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
@@ -79,6 +87,8 @@ jobs:
   may-merge:
     needs: ["format", "lint", "test"]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Cleared for merging
         run: echo OK
