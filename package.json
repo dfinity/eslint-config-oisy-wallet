@@ -14,7 +14,9 @@
   "files": [
     "README.md",
     "LICENSE",
-    ".oxlintrc.json"
+    ".oxlintrc.json",
+    "eslint-local-rules.cjs",
+    "rules/**/*.cjs"
   ],
   "exports": {
     ".": {
