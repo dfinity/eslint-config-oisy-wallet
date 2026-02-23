@@ -83,7 +83,6 @@ export const eslintRules = [
           "newlines-between": "never",
         },
       ],
-      "import/no-duplicates": ["error", { "prefer-inline": true }],
       "import/no-relative-parent-imports": "error",
 
       "object-shorthand": "error",
@@ -91,6 +90,7 @@ export const eslintRules = [
       "no-console": ["error", { allow: ["error", "warn"] }],
       "no-continue": "warn",
       "no-delete-var": "error",
+      "no-duplicate-imports": "error",
       "no-else-return": ["warn", { allowElseIf: false }],
       "no-restricted-imports": [
         "error",
