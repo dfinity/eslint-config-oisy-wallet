@@ -1,8 +1,8 @@
 {
-  "name": "@dfinity/eslint-config-oisy-wallet",
+  "name": "@dfinity/lint-config-oisy",
   "version": "0.2.4",
   "license": "Apache-2.0",
-  "description": "Shared ESLint configurations from the Oisy Wallet team",
+  "description": "Shared OxLint configurations from the OISY Wallet team",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dfinity/eslint-config-oisy-wallet.git"

@@ -1,4 +1,4 @@
-# ⚡ @dfinity/eslint-config-oisy-wallet
+# ⚡ @dfinity/lint-config-oisy
 
 A high-performance linting configuration for Oisy Wallet projects, powered by [Oxlint](https://oxlint.js.org/).
 
@@ -17,11 +17,11 @@ A high-performance linting configuration for Oisy Wallet projects, powered by [O
 
 ```bash
 # with npm
-npm install --save-dev @dfinity/eslint-config-oisy-wallet oxlint
+npm install --save-dev @dfinity/lint-config-oisy oxlint
 # with pnpm
-pnpm add --save-dev @dfinity/eslint-config-oisy-wallet oxlint
+pnpm add --save-dev @dfinity/lint-config-oisy oxlint
 # with yarn
-yarn add -D @dfinity/eslint-config-oisy-wallet oxlint
+yarn add -D @dfinity/lint-config-oisy oxlint
 ```
 
 ## ✍️ Usage
@@ -31,14 +31,14 @@ This package provides a shareable Oxlint configuration. To use it in your projec
 1. **Install Oxlint and the configuration:**
 
 ```bash
-npm install --save-dev oxlint @dfinity/eslint-config-oisy-wallet
+npm install --save-dev oxlint @dfinity/lint-config-oisy
 ```
 
 2. **Extend the configuration in your `.oxlintrc.json`:**
 
 ```json
 {
-  "extends": ["@dfinity/eslint-config-oisy-wallet/oxlintrc"]
+  "extends": ["@dfinity/lint-config-oisy/oxlintrc"]
 }
 ```
 
