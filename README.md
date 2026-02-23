@@ -78,4 +78,4 @@ Oxlint natively supports TypeScript and Svelte files. No additional configuratio
 
 ---
 
-*Note: While legacy ESLint `.mjs` configs are still present for backward compatibility, they are no longer the recommended way to use this package.*
+_Note: While legacy ESLint `.mjs` configs are still present for backward compatibility, they are no longer the recommended way to use this package._

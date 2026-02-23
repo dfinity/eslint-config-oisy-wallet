@@ -17,9 +17,21 @@
     ".oxlintrc.json"
   ],
   "exports": {
-    "./oxlintrc": {
-      "import": "./.oxlintrc.json",
-      "require": "./.oxlintrc.json"
+    ".": {
+      "import": "./.oxlintrc.base.json",
+      "require": "./.oxlintrc.base.json"
+    },
+    "./svelte": {
+      "import": "./.oxlintrc.svelte.json",
+      "require": "./.oxlintrc.svelte.json"
+    },
+    "./vitest": {
+      "import": "./.oxlintrc.vitest.json",
+      "require": "./.oxlintrc.vitest.json"
+    },
+    "./eslint-local-rules": {
+      "import": "./eslint-local-rules.cjs",
+      "require": "./eslint-local-rules.cjs"
     }
   },
   "scripts": {
@@ -27,12 +39,13 @@
     "format:check": "prettier --check .",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
-    "test": "vitest --run",
-    "update:peer": "npm update $(node -e \"const p=require('./package.json');console.log(Object.keys(p.peerDependencies).filter(d=>/eslint|prettier/.test(d)).join(' '))\")"
+    "test": "vitest --run"
   },
   "keywords": [
     "eslint",
     "eslint-config",
+    "oxlint",
+    "oxlint-config",
     "typescript",
     "svelte",
     "linting",
@@ -49,7 +62,9 @@
   "peerDependencies": {
     "@dfinity/utils": "*",
     "eslint-plugin-oxlint": "^1.49.0",
-    "oxlint": "^1.50.0"
+    "oxlint": "^1.50.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
