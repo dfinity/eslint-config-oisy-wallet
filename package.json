@@ -2,7 +2,7 @@
   "name": "@dfinity/lint-config-oisy",
   "version": "0.2.4",
   "license": "Apache-2.0",
-  "description": "Shared OxLint configurations from the OISY Wallet team",
+  "description": "Shared OXLint configurations from the OISY Wallet team",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dfinity/eslint-config-oisy-wallet.git"
@@ -14,7 +14,9 @@
   "files": [
     "README.md",
     "LICENSE",
-    ".oxlintrc.json",
+    ".oxlintrc.base.json",
+    ".oxlintrc.svelte.json",
+    ".oxlintrc.vitest.json",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
   ],
