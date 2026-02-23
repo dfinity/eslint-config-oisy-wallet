@@ -1,0 +1,54 @@
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ vars.PR_AUTOMATION_BOT_PUBLIC_APP_ID }}
+          private-key: ${{ secrets.PR_AUTOMATION_BOT_PUBLIC_PRIVATE_KEY }}
+
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Prepare
+        uses: ./.github/actions/prepare
+
+      - name: Update package
+        run: npm run update:peer
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: main
+          committer: GitHub <noreply@github.com>
+          author: gix-bot <gix-bot@users.noreply.github.com>
+          branch: bot-bump-peer-deps
+          delete-branch: true
+          title: "build(peer-deps): Bump peer dependencies"
+          commit-message: "build(peer-deps): Bump peer dependencies"
+          body: |
+            # Motivation
+
+            We want to pull in the latest changes for the Peer Dependencies.
+
+            # Changes
+
+            * Ran `npm run update:peer`
+
+            # Tests
+
+            * CI should pass
+            * The pulled in changes should have been tested before being committed to their repositories.
