@@ -1,0 +1,170 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "import", "vitest"],
+  "categories": {
+    "correctness": "error",
+    "style": "error",
+    "restriction": "error",
+    "pedantic": "error",
+    "suspicious": "warn"
+  },
+  "env": {
+    "builtin": true,
+    "es2020": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+
+    "arrow-body-style": ["warn", "as-needed"],
+
+    "local-rules/prefer-object-params": "warn",
+
+    "no-console": [
+      "error",
+      {
+        "allow": ["error", "warn"]
+      }
+    ],
+
+    "no-continue": "warn",
+
+    "no-else-return": [
+      "warn",
+      {
+        "allowElseIf": false
+      }
+    ],
+
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["**/dist/**"],
+            "message": "Do not import directly from a package's /dist/ folder. Use the package's public entry point instead."
+          }
+        ],
+        "paths": [
+          {
+            "name": "@dfinity/ckbtc",
+            "message": "Use @icp-sdk/canisters/ckbtc instead."
+          },
+          {
+            "name": "@dfinity/cketh",
+            "message": "Use @icp-sdk/canisters/cketh instead."
+          },
+          {
+            "name": "@dfinity/cmc",
+            "message": "Use @icp-sdk/canisters/cmc instead."
+          },
+          {
+            "name": "@dfinity/ic-management",
+            "message": "Use @icp-sdk/canisters/ic-management instead."
+          },
+          {
+            "name": "@dfinity/ledger-icp",
+            "message": "Use @icp-sdk/canisters/ledger/icp instead."
+          },
+          {
+            "name": "@dfinity/ledger-icrc",
+            "message": "Use @icp-sdk/canisters/ledger/icrc instead."
+          },
+          {
+            "name": "@dfinity/nns",
+            "message": "Use @icp-sdk/canisters/nns instead."
+          },
+          {
+            "name": "@dfinity/sns",
+            "message": "Use @icp-sdk/canisters/sns instead."
+          }
+        ]
+      }
+    ],
+
+    "prefer-arrow/prefer-arrow-functions": [
+      "error",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "**/*~",
+    "**/*.sw[mnpcod]",
+    "**/*.log",
+    "**/*.tmp",
+    "**/*.tmp.*",
+    "**/log.txt",
+    "**/*.sublime-project",
+    "**/*.sublime-workspace",
+    "**/.idea/",
+    "**/.vscode/",
+    "**/npm-debug.log*",
+    "**/.sourcemaps/",
+    "**/.sass-cache/",
+    "**/.tmp/",
+    "**/.versions/",
+    "**/coverage/",
+    "**/node_modules/",
+    "**/tmp/",
+    "**/temp/",
+    "**/platforms/",
+    "**/plugins/",
+    "plugins/android.json",
+    "plugins/ios.json",
+    "**/$RECYCLE.BIN/",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/UserInterfaceState.xcuserstate",
+    "**/dist/"
+  ],
+  "jsPlugins": ["eslint-plugin-local-rules", "eslint-plugin-prefer-arrow"],
+  "globals": {
+    "NodeJS": "writable"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "rules": {
+        "constructor-super": "off",
+        "getter-return": "off",
+        "no-class-assign": "off",
+        "no-const-assign": "off",
+        "no-dupe-class-members": "off",
+        "no-dupe-keys": "off",
+        "no-func-assign": "off",
+        "no-import-assign": "off",
+        "no-new-native-nonconstructor": "off",
+        "no-obj-calls": "off",
+        "no-redeclare": "off",
+        "no-setter-return": "off",
+        "no-this-before-super": "off",
+        "no-undef": "off",
+        "no-unreachable": "off",
+        "no-unsafe-negation": "off",
+        "no-var": "error",
+        "no-with": "off",
+        "prefer-const": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error"
+      }
+    },
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+        "prefer-const": "error"
+      }
+    }
+  ]
+}

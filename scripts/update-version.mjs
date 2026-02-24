@@ -23,12 +23,11 @@ const nextVersion = async ({ project, currentVersion }) => {
 };
 
 const updateVersion = async () => {
-  const project = "@dfinity/eslint-config-oisy-wallet";
+  const project = "@dfinity/lint-config-oisy";
 
   const packagePath = join(process.cwd(), "package.json");
 
   if (!existsSync(packagePath)) {
-    // eslint-disable-next-line no-console
     console.log(`Target ${packagePath} does not exist.`);
     return;
   }

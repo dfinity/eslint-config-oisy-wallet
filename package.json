@@ -1,8 +1,8 @@
 {
-  "name": "@dfinity/eslint-config-oisy-wallet",
+  "name": "@dfinity/lint-config-oisy",
   "version": "0.2.4",
   "license": "Apache-2.0",
-  "description": "Shared ESLint configurations from the Oisy Wallet team",
+  "description": "Shared OXLint configurations from the OISY Wallet team",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dfinity/eslint-config-oisy-wallet.git"
@@ -14,25 +14,24 @@
   "files": [
     "README.md",
     "LICENSE",
-    "index.mjs",
-    "svelte.mjs",
-    "vitest.mjs",
-    "configs",
+    ".oxlintrc.base.json",
+    ".oxlintrc.svelte.json",
+    ".oxlintrc.vitest.json",
     "eslint-local-rules.cjs",
     "rules/**/*.cjs"
   ],
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.mjs"
+      "import": "./.oxlintrc.base.json",
+      "require": "./.oxlintrc.base.json"
     },
     "./svelte": {
-      "import": "./svelte.mjs",
-      "require": "./svelte.mjs"
+      "import": "./.oxlintrc.svelte.json",
+      "require": "./.oxlintrc.svelte.json"
     },
     "./vitest": {
-      "import": "./vitest.mjs",
-      "require": "./vitest.mjs"
+      "import": "./.oxlintrc.vitest.json",
+      "require": "./.oxlintrc.vitest.json"
     },
     "./eslint-local-rules": {
       "import": "./eslint-local-rules.cjs",
@@ -42,14 +41,15 @@
   "scripts": {
     "format": "prettier . --write",
     "format:check": "prettier --check .",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "vitest --run",
-    "update:peer": "npm update $(node -e \"const p=require('./package.json');console.log(Object.keys(p.peerDependencies).filter(d=>/eslint|prettier/.test(d)).join(' '))\")"
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "test": "vitest --run"
   },
   "keywords": [
     "eslint",
     "eslint-config",
+    "oxlint",
+    "oxlint-config",
     "typescript",
     "svelte",
     "linting",
@@ -65,25 +65,10 @@
   ],
   "peerDependencies": {
     "@dfinity/utils": "*",
-    "@eslint/compat": "^2.0.2",
-    "@eslint/eslintrc": "^3.3.3",
-    "@eslint/js": "^9.39.2",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
-    "@vitest/eslint-plugin": "^1.6.9",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-local-rules": "^3.0.2",
-    "eslint-plugin-n": "^17.24.0",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-svelte": "^3.15.0",
-    "globals": "^17.3.0",
+    "eslint-plugin-oxlint": "^1.49.0",
+    "oxlint": "^1.50.0",
     "prettier": "^3.8.1",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "typescript": "^5",
-    "typescript-eslint": "^8.56.0"
+    "prettier-plugin-organize-imports": "^4.3.0"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",

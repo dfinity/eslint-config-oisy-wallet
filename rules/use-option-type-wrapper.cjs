@@ -43,7 +43,6 @@ module.exports = {
             });
           } catch (e) {
             console.error(e);
-            // eslint-disable-next-line no-console
             console.log(type);
           }
         }
