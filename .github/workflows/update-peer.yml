@@ -1,3 +1,5 @@
+name: Update Peer Dependencies
+
 on:
   workflow_dispatch:
 
