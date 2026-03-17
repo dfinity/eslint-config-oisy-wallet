@@ -2,19 +2,19 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      description: "Enforce use of Option<T> instead of T | null | undefined",
+      description: "Enforce use of Nullish<T> instead of T | null | undefined",
       category: "Best Practices",
       recommended: false,
     },
     messages: {
-      useOption:
-        "Use Option<{{ type }}> instead of {{ type }} | null | undefined.",
+      useNullish:
+        "Use Nullish<{{ type }}> instead of {{ type }} | null | undefined.",
     },
     fixable: "code",
     schema: [],
   },
   create: (context) => {
-    const checkForOptionType = (node) => {
+    const checkForNullishType = (node) => {
       if (
         node.typeAnnotation.type === "TSUnionType" &&
         node.typeAnnotation.types.length === 3 &&
@@ -34,12 +34,12 @@ module.exports = {
           try {
             context.report({
               node,
-              messageId: "useOption",
+              messageId: "useNullish",
               data: {
                 type: typeText,
               },
               fix: (fixer) =>
-                fixer.replaceText(node.typeAnnotation, `Option<${typeText}>`),
+                fixer.replaceText(node.typeAnnotation, `Nullish<${typeText}>`),
             });
           } catch (e) {
             console.error(e);
@@ -52,10 +52,10 @@ module.exports = {
 
     return {
       TSTypeAnnotation: (node) => {
-        checkForOptionType(node);
+        checkForNullishType(node);
       },
       TSTypeAliasDeclaration: (node) => {
-        checkForOptionType(node);
+        checkForNullishType(node);
       },
     };
   },
