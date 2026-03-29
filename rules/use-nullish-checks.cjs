@@ -29,6 +29,20 @@ module.exports = {
   },
 
   create: (context) => {
+    const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
+    const NULLISH_COMPARISON_OPS = new Set(["===", "!==", "==", "!="]);
+    const BOOLEAN_BINARY_OPS = new Set([
+      "===",
+      "!==",
+      "==",
+      "!=",
+      ">",
+      "<",
+      ">=",
+      "<=",
+    ]);
+    const NULLISH_EQ_OPS = new Set(["===", "=="]);
+
     const includeBooleans = context.options[0]?.includeBooleans ?? false;
 
     const parserServices =
@@ -44,7 +58,7 @@ module.exports = {
       const isFallbackBoolean = (n) => {
         if (
           n.type === "BinaryExpression" &&
-          ["===", "!==", "==", "!=", ">", "<", ">=", "<="].includes(n.operator)
+          BOOLEAN_BINARY_OPS.has(n.operator)
         ) {
           return true;
         }
@@ -56,7 +70,7 @@ module.exports = {
         if (
           n.type === "CallExpression" &&
           n.callee.type === "Identifier" &&
-          ["isNullish", "nonNullish"].includes(n.callee.name)
+          NULLISH_UTILS.has(n.callee.name)
         ) {
           return true;
         }
@@ -174,14 +188,14 @@ module.exports = {
       if (
         node.type === "CallExpression" &&
         node.callee.type === "Identifier" &&
-        ["isNullish", "nonNullish"].includes(node.callee.name)
+        NULLISH_UTILS.has(node.callee.name)
       ) {
         return;
       }
 
       if (node.type === "BinaryExpression") {
         const isNullishCheck =
-          ["===", "!==", "==", "!="].includes(node.operator) &&
+          NULLISH_COMPARISON_OPS.has(node.operator) &&
           (isNullishLiteral(node.right) || isNullishLiteral(node.left));
         if (isNullishCheck) {
           return;
@@ -205,7 +219,7 @@ module.exports = {
 
     return {
       BinaryExpression: (node) => {
-        if (!["===", "!==", "==", "!="].includes(node.operator)) {
+        if (!NULLISH_COMPARISON_OPS.has(node.operator)) {
           return;
         }
 
@@ -216,7 +230,7 @@ module.exports = {
             : undefined;
 
         if (target) {
-          const messageId = ["===", "=="].includes(node.operator)
+          const messageId = NULLISH_EQ_OPS.has(node.operator)
             ? "isNullish"
             : "nonNullish";
           report({ node, messageId, fixNode: target });
