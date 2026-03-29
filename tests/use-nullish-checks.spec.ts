@@ -29,6 +29,10 @@ ruleTester.run("use-nullish-checks", rule, {
     {
       code: "if (isNullish(foo)) {}",
     },
+    {
+      code: "if (a === b) {}",
+      options: [{ includeBooleans: false }],
+    },
   ],
 
   invalid: [
@@ -87,6 +91,12 @@ ruleTester.run("use-nullish-checks", rule, {
       options: [{ includeBooleans: true }],
       errors: [{ messageId: "nonNullish" }],
       output: "if (nonNullish(a === b)) {}",
+    },
+    {
+      code: "if (!(a === b)) {}",
+      options: [{ includeBooleans: true }],
+      errors: [{ messageId: "isNullish" }],
+      output: "if (isNullish(a === b)) {}",
     },
     {
       code: "const x = foo ? (bar ? 1 : 2) : 3;",
