@@ -1,6 +1,28 @@
 /* eslint-disable local-rules/use-nullish-checks */
 const ts = require("typescript");
 
+const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
+const NULLISH_COMPARISON_OPS = new Set(["===", "!==", "==", "!="]);
+const BOOLEAN_BINARY_OPS = new Set([
+  "===",
+  "!==",
+  "==",
+  "!=",
+  ">",
+  "<",
+  ">=",
+  "<=",
+]);
+const NULLISH_EQ_OPS = new Set(["===", "=="]);
+const KNOWN_BOOLEAN_METHODS = new Set([
+  "includes",
+  "startsWith",
+  "endsWith",
+  "test",
+  "some",
+  "every",
+]);
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -30,32 +52,11 @@ module.exports = {
   },
 
   create: (context) => {
-    const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
-    const NULLISH_COMPARISON_OPS = new Set(["===", "!==", "==", "!="]);
-    const BOOLEAN_BINARY_OPS = new Set([
-      "===",
-      "!==",
-      "==",
-      "!=",
-      ">",
-      "<",
-      ">=",
-      "<=",
-    ]);
-    const NULLISH_EQ_OPS = new Set(["===", "=="]);
-    const KNOWN_BOOLEAN_METHODS = new Set([
-      "includes",
-      "startsWith",
-      "endsWith",
-      "test",
-      "some",
-      "every",
-    ]);
-
     const shouldLintBooleans = context.options[0]?.includeBooleans ?? false;
 
-    const parserServices =
-      context.sourceCode?.parserServices ?? context.parserServices;
+    const sourceCode = context.sourceCode;
+
+    const parserServices = sourceCode?.parserServices ?? context.parserServices;
 
     const checker = parserServices?.program?.getTypeChecker();
 
@@ -121,8 +122,8 @@ module.exports = {
         return false;
       }
 
-      let scope = context.sourceCode.getScope
-        ? context.sourceCode.getScope(node)
+      let scope = sourceCode.getScope
+        ? sourceCode.getScope(node)
         : context.getScope();
 
       while (scope) {
@@ -174,7 +175,7 @@ module.exports = {
       );
     };
 
-    const isBooleanType = (node) => {
+    const shouldTreatAsBooleanCondition = (node) => {
       if (shouldLintBooleans) {
         return false;
       }
@@ -187,9 +188,9 @@ module.exports = {
       }
     };
 
-    const isNullishLiteral = (node) =>
-      (node.type === "Identifier" && node.name === "undefined") ||
-      (node.type === "Literal" && node.value === null);
+    const isNullishLiteral = (expression) =>
+      (expression.type === "Identifier" && expression.name === "undefined") ||
+      (expression.type === "Literal" && expression.value === null);
 
     const getNullishComparisonTarget = (node) => {
       if (
@@ -220,7 +221,7 @@ module.exports = {
         fix: (fixer) =>
           fixer.replaceText(
             node,
-            `${replacementFn}(${context.sourceCode.getText(fixNode)})`,
+            `${replacementFn}(${sourceCode.getText(fixNode)})`,
           ),
       });
     };
@@ -244,7 +245,7 @@ module.exports = {
         return;
       }
 
-      if (!isBooleanType(node)) {
+      if (!shouldTreatAsBooleanCondition(node)) {
         report({
           node,
           messageId: "nonNullish",
@@ -284,7 +285,7 @@ module.exports = {
           node.argument.type === "UnaryExpression" &&
           node.argument.operator === "!"
         ) {
-          if (!isBooleanType(node.argument.argument)) {
+          if (!shouldTreatAsBooleanCondition(node.argument.argument)) {
             report({
               node,
               messageId: "nonNullish",
@@ -292,7 +293,10 @@ module.exports = {
               fixNode: node.argument.argument,
             });
           }
-        } else if (node.operator === "!" && !isBooleanType(node.argument)) {
+        } else if (
+          node.operator === "!" &&
+          !shouldTreatAsBooleanCondition(node.argument)
+        ) {
           const { parent } = node;
 
           if (parent?.type === "UnaryExpression" && parent.operator === "!") {
