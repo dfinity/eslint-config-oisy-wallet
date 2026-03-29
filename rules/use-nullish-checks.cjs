@@ -99,7 +99,7 @@ module.exports = {
 
     const findVariableTypeAnnotation = ({ scope, variableName }) => {
       if (!scope) {
-        return undefined;
+        return;
       }
 
       const variable = scope.set.get(variableName);
@@ -202,7 +202,7 @@ module.exports = {
         node.type !== "BinaryExpression" ||
         !NULLISH_COMPARISON_OPS.has(node.operator)
       ) {
-        return undefined;
+        return;
       }
 
       if (isNullishLiteral(node.right)) {
@@ -212,8 +212,6 @@ module.exports = {
       if (isNullishLiteral(node.left)) {
         return node.right;
       }
-
-      return undefined;
     };
 
     const getNullishReplacement = (operator) =>
