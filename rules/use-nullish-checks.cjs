@@ -31,7 +31,16 @@ module.exports = {
   create: (context) => {
     const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
     const NULLISH_COMPARISON_OPS = new Set(["===", "!==", "==", "!="]);
-    const BOOLEAN_BINARY_OPS = new Set(["===", "!==", "==", "!=", ">", "<", ">=", "<="]);
+    const BOOLEAN_BINARY_OPS = new Set([
+      "===",
+      "!==",
+      "==",
+      "!=",
+      ">",
+      "<",
+      ">=",
+      "<=",
+    ]);
     const NULLISH_EQ_OPS = new Set(["===", "=="]);
 
     const includeBooleans = context.options[0]?.includeBooleans ?? false;
@@ -226,6 +235,10 @@ module.exports = {
       }
     };
 
+    const checkTest = (node) => {
+      checkCondition(node.test);
+    };
+
     return {
       BinaryExpression: (node) => {
         const target = getNullishComparisonTarget(node);
@@ -274,10 +287,11 @@ module.exports = {
         }
       },
 
-      "IfStatement, WhileStatement, DoWhileStatement, ForStatement, ConditionalExpression":
-        (node) => {
-          checkCondition(node.test);
-        },
+      IfStatement: checkTest,
+      WhileStatement: checkTest,
+      DoWhileStatement: checkTest,
+      ForStatement: checkTest,
+      ConditionalExpression: checkTest,
     };
   },
 };
