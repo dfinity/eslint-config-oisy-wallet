@@ -1,3 +1,4 @@
+/* eslint-disable local-rules/use-nullish-checks */
 const ts = require("typescript");
 
 module.exports = {
@@ -42,33 +43,32 @@ module.exports = {
       "<=",
     ]);
     const NULLISH_EQ_OPS = new Set(["===", "=="]);
-    const BOOLEAN_METHODS = new Set([
-      "some",
-      "every",
+    const KNOWN_BOOLEAN_METHODS = new Set([
       "includes",
       "startsWith",
       "endsWith",
       "test",
-      "hasOwnProperty",
+      "some",
+      "every",
     ]);
 
-    const includeBooleans = context.options[0]?.includeBooleans ?? false;
+    const shouldLintBooleans = context.options[0]?.includeBooleans ?? false;
 
     const parserServices =
       context.sourceCode?.parserServices ?? context.parserServices;
 
     const checker = parserServices?.program?.getTypeChecker();
 
-    const hasNullishUtilityCall = (node) =>
+    const isNullishUtilityCall = (node) =>
       node.type === "CallExpression" &&
       node.callee.type === "Identifier" &&
       NULLISH_UTILS.has(node.callee.name);
 
-    const hasBooleanMethodCall = (node) =>
+    const hasKnownBooleanMethodCall = (node) =>
       node.type === "CallExpression" &&
       node.callee.type === "MemberExpression" &&
       node.callee.property.type === "Identifier" &&
-      BOOLEAN_METHODS.has(node.callee.property.name);
+      KNOWN_BOOLEAN_METHODS.has(node.callee.property.name);
 
     const isBooleanBinaryExpression = (node) =>
       node.type === "BinaryExpression" && BOOLEAN_BINARY_OPS.has(node.operator);
@@ -109,11 +109,11 @@ module.exports = {
         return true;
       }
 
-      if (hasNullishUtilityCall(node)) {
+      if (isNullishUtilityCall(node)) {
         return true;
       }
 
-      if (hasBooleanMethodCall(node)) {
+      if (hasKnownBooleanMethodCall(node)) {
         return true;
       }
 
@@ -175,16 +175,13 @@ module.exports = {
     };
 
     const isBooleanType = (node) => {
-      if (includeBooleans) {
+      if (shouldLintBooleans) {
         return false;
       }
 
       try {
-        const fromTs = isBooleanTypeFromTs(node);
-        if (fromTs) {
-          return true;
-        }
-        return isBooleanTypeFromScope(node);
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        return isBooleanTypeFromTs(node) || isBooleanTypeFromScope(node);
       } catch {
         return isBooleanTypeFromScope(node);
       }
@@ -213,6 +210,9 @@ module.exports = {
       return undefined;
     };
 
+    const getNullishReplacement = (operator) =>
+      NULLISH_EQ_OPS.has(operator) ? "isNullish" : "nonNullish";
+
     const report = ({ node, messageId, replacementFn, fixNode }) => {
       context.report({
         node,
@@ -230,7 +230,7 @@ module.exports = {
         return;
       }
 
-      if (hasNullishUtilityCall(node) || getNullishComparisonTarget(node)) {
+      if (isNullishUtilityCall(node) || getNullishComparisonTarget(node)) {
         return;
       }
 
@@ -254,8 +254,10 @@ module.exports = {
       }
     };
 
-    const checkTest = (node) => {
-      checkCondition(node.test);
+    const checkTestCondition = (node) => {
+      if (node.test) {
+        checkCondition(node.test);
+      }
     };
 
     return {
@@ -266,12 +268,12 @@ module.exports = {
           return;
         }
 
-        const isPositiveCheck = NULLISH_EQ_OPS.has(node.operator);
+        const replacementFn = getNullishReplacement(node.operator);
 
         report({
           node,
-          messageId: isPositiveCheck ? "isNullish" : "nonNullish",
-          replacementFn: isPositiveCheck ? "isNullish" : "nonNullish",
+          messageId: replacementFn,
+          replacementFn,
           fixNode: target,
         });
       },
@@ -306,11 +308,11 @@ module.exports = {
         }
       },
 
-      IfStatement: checkTest,
-      WhileStatement: checkTest,
-      DoWhileStatement: checkTest,
-      ForStatement: checkTest,
-      ConditionalExpression: checkTest,
+      IfStatement: checkTestCondition,
+      WhileStatement: checkTestCondition,
+      DoWhileStatement: checkTestCondition,
+      ForStatement: checkTestCondition,
+      ConditionalExpression: checkTestCondition,
     };
   },
 };
