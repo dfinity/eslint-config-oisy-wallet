@@ -39,15 +39,57 @@ module.exports = {
         return !includeBooleans;
       }
 
-      const isFallbackBoolean = (n) =>
-        (n.type === "BinaryExpression" &&
-          ["===", "!==", "==", "!=", ">", "<", ">=", "<="].includes(
-            n.operator,
-          )) ||
-        (n.type === "UnaryExpression" && n.operator === "!") ||
-        (n.type === "CallExpression" &&
+      const isFallbackBoolean = (n) => {
+        if (
+          n.type === "BinaryExpression" &&
+          ["===", "!==", "==", "!=", ">", "<", ">=", "<="].includes(n.operator)
+        ) {
+          return true;
+        }
+        if (n.type === "UnaryExpression" && n.operator === "!") {
+          return true;
+        }
+        if (
+          n.type === "CallExpression" &&
           n.callee.type === "Identifier" &&
-          ["isNullish", "nonNullish"].includes(n.callee.name));
+          ["isNullish", "nonNullish"].includes(n.callee.name)
+        ) {
+          return true;
+        }
+
+        if (n.type === "Identifier" && !includeBooleans) {
+          // Fallback to AST scanning if ts checker is missing
+          let scope = context.sourceCode.getScope
+            ? context.sourceCode.getScope(n)
+            : context.getScope();
+          while (scope) {
+            const variable = scope.set.get(n.name);
+            if (variable && variable.defs.length > 0) {
+              const [def] = variable.defs;
+              const typeAnn =
+                def.node?.id?.typeAnnotation?.typeAnnotation ??
+                def.node?.typeAnnotation?.typeAnnotation;
+              if (typeAnn) {
+                if (typeAnn.type === "TSBooleanKeyword") {
+                  return true;
+                }
+                if (typeAnn.type === "TSUnionType") {
+                  return typeAnn.types.every(
+                    (t) =>
+                      t.type === "TSBooleanKeyword" ||
+                      t.type === "TSNullKeyword" ||
+                      t.type === "TSUndefinedKeyword" ||
+                      (t.type === "TSLiteralType" &&
+                        typeof t.literal?.value === "boolean"),
+                  );
+                }
+              }
+            }
+            scope = scope.upper;
+          }
+        }
+        return false;
+      };
 
       if (!checker || !parserServices) {
         if (includeBooleans) {
