@@ -30,8 +30,10 @@ module.exports = {
 
   create: (context) => {
     const includeBooleans = context.options[0]?.includeBooleans ?? false;
+
     const parserServices =
       context.sourceCode?.parserServices ?? context.parserServices;
+
     const checker = parserServices?.program?.getTypeChecker();
 
     const isBooleanType = (node) => {
@@ -46,9 +48,11 @@ module.exports = {
         ) {
           return true;
         }
+
         if (n.type === "UnaryExpression" && n.operator === "!") {
           return true;
         }
+
         if (
           n.type === "CallExpression" &&
           n.callee.type === "Identifier" &&
@@ -62,17 +66,22 @@ module.exports = {
           let scope = context.sourceCode.getScope
             ? context.sourceCode.getScope(n)
             : context.getScope();
+
           while (scope) {
             const variable = scope.set.get(n.name);
+
             if (variable && variable.defs.length > 0) {
               const [def] = variable.defs;
+
               const typeAnn =
                 def.node?.id?.typeAnnotation?.typeAnnotation ??
                 def.node?.typeAnnotation?.typeAnnotation;
+
               if (typeAnn) {
                 if (typeAnn.type === "TSBooleanKeyword") {
                   return true;
                 }
+
                 if (typeAnn.type === "TSUnionType") {
                   return typeAnn.types.every(
                     (t) =>
@@ -85,9 +94,11 @@ module.exports = {
                 }
               }
             }
+
             scope = scope.upper;
           }
         }
+
         return false;
       };
 
@@ -95,11 +106,13 @@ module.exports = {
         if (includeBooleans) {
           return false;
         }
+
         return isFallbackBoolean(node);
       }
 
       try {
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+
         const type = checker.getTypeAtLocation(tsNode);
 
         const isStrictBoolean = (t) =>
@@ -121,15 +134,16 @@ module.exports = {
                   ts.TypeFlags.Undefined)) !==
               0,
           );
+
           if (allBooleanLike) {
             return !includeBooleans;
           }
         }
       } catch (_) {
-        // Fallback
         if (includeBooleans) {
           return false;
         }
+
         return isFallbackBoolean(node);
       }
 
@@ -195,12 +209,11 @@ module.exports = {
           return;
         }
 
-        let target;
-        if (isNullishLiteral(node.right)) {
-          target = node.left;
-        } else if (isNullishLiteral(node.left)) {
-          target = node.right;
-        }
+        const target = isNullishLiteral(node.right)
+          ? node.left
+          : isNullishLiteral(node.left)
+            ? node.right
+            : undefined;
 
         if (target) {
           const messageId = ["===", "=="].includes(node.operator)
@@ -211,7 +224,6 @@ module.exports = {
       },
 
       UnaryExpression: (node) => {
-        // Handle !!foo (Double exclamation)
         if (
           node.operator === "!" &&
           node.argument.type === "UnaryExpression" &&
@@ -225,11 +237,12 @@ module.exports = {
             });
           }
         } else if (node.operator === "!" && !isBooleanType(node.argument)) {
-          // Skip if parent is another ! (to avoid double reporting in !! case)
           const { parent } = node;
+
           if (parent?.type === "UnaryExpression" && parent.operator === "!") {
             return;
           }
+
           report({ node, messageId: "isNullish", fixNode: node.argument });
         }
       },
