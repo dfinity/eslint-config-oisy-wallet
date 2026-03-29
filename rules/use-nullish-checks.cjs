@@ -54,7 +54,7 @@ module.exports = {
   create: (context) => {
     const shouldLintBooleans = context.options[0]?.includeBooleans ?? false;
 
-    const sourceCode = context.sourceCode;
+    const { sourceCode } = context;
 
     const parserServices = sourceCode?.parserServices ?? context.parserServices;
 
