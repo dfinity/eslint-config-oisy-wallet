@@ -97,6 +97,21 @@ module.exports = {
       );
     };
 
+    const findVariableTypeAnnotation = ({ scope, variableName }) => {
+      if (!scope) {
+        return undefined;
+      }
+
+      const variable = scope.set.get(variableName);
+      const [def] = variable?.defs ?? [];
+
+      const typeAnn =
+        def?.node?.id?.typeAnnotation?.typeAnnotation ??
+        def?.node?.typeAnnotation?.typeAnnotation;
+
+      return typeAnn ?? findVariableTypeAnnotation(scope.upper, variableName);
+    };
+
     const isBooleanTypeFromScope = (node) => {
       if (node.type === "Literal" && typeof node.value === "boolean") {
         return true;
@@ -122,26 +137,16 @@ module.exports = {
         return false;
       }
 
-      let scope = sourceCode.getScope
+      const initialScope = sourceCode?.getScope
         ? sourceCode.getScope(node)
         : context.getScope();
 
-      while (scope) {
-        const variable = scope.set.get(node.name);
-        const [def] = variable?.defs ?? [];
+      const typeAnn = findVariableTypeAnnotation({
+        scope: initialScope,
+        variableName: node.name,
+      });
 
-        const typeAnn =
-          def?.node?.id?.typeAnnotation?.typeAnnotation ??
-          def?.node?.typeAnnotation?.typeAnnotation;
-
-        if (isBooleanTypeAnnotation(typeAnn)) {
-          return true;
-        }
-
-        scope = scope.upper;
-      }
-
-      return false;
+      return isBooleanTypeAnnotation(typeAnn);
     };
 
     const isBooleanTypeFromTs = (node) => {
@@ -221,7 +226,7 @@ module.exports = {
         fix: (fixer) =>
           fixer.replaceText(
             node,
-            `${replacementFn}(${sourceCode.getText(fixNode)})`,
+            `${replacementFn}(${sourceCode ? sourceCode.getText(fixNode) : context.getSourceCode().getText(fixNode)})`,
           ),
       });
     };
