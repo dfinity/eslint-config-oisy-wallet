@@ -42,6 +42,15 @@ module.exports = {
       "<=",
     ]);
     const NULLISH_EQ_OPS = new Set(["===", "=="]);
+    const BOOLEAN_METHODS = new Set([
+      "some",
+      "every",
+      "includes",
+      "startsWith",
+      "endsWith",
+      "test",
+      "hasOwnProperty",
+    ]);
 
     const includeBooleans = context.options[0]?.includeBooleans ?? false;
 
@@ -54,6 +63,12 @@ module.exports = {
       node.type === "CallExpression" &&
       node.callee.type === "Identifier" &&
       NULLISH_UTILS.has(node.callee.name);
+
+    const hasBooleanMethodCall = (node) =>
+      node.type === "CallExpression" &&
+      node.callee.type === "MemberExpression" &&
+      node.callee.property.type === "Identifier" &&
+      BOOLEAN_METHODS.has(node.callee.property.name);
 
     const isBooleanBinaryExpression = (node) =>
       node.type === "BinaryExpression" && BOOLEAN_BINARY_OPS.has(node.operator);
@@ -95,6 +110,10 @@ module.exports = {
       }
 
       if (hasNullishUtilityCall(node)) {
+        return true;
+      }
+
+      if (hasBooleanMethodCall(node)) {
         return true;
       }
 
