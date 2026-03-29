@@ -31,16 +31,7 @@ module.exports = {
   create: (context) => {
     const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
     const NULLISH_COMPARISON_OPS = new Set(["===", "!==", "==", "!="]);
-    const BOOLEAN_BINARY_OPS = new Set([
-      "===",
-      "!==",
-      "==",
-      "!=",
-      ">",
-      "<",
-      ">=",
-      "<=",
-    ]);
+    const BOOLEAN_BINARY_OPS = new Set(["===", "!==", "==", "!=", ">", "<", ">=", "<="]);
     const NULLISH_EQ_OPS = new Set(["===", "=="]);
 
     const includeBooleans = context.options[0]?.includeBooleans ?? false;
@@ -50,132 +41,158 @@ module.exports = {
 
     const checker = parserServices?.program?.getTypeChecker();
 
-    const isBooleanType = (node) => {
-      if (node.type === "Literal" && typeof node.value === "boolean") {
-        return !includeBooleans;
-      }
+    const hasNullishUtilityCall = (node) =>
+      node.type === "CallExpression" &&
+      node.callee.type === "Identifier" &&
+      NULLISH_UTILS.has(node.callee.name);
 
-      const isFallbackBoolean = (n) => {
-        if (
-          n.type === "BinaryExpression" &&
-          BOOLEAN_BINARY_OPS.has(n.operator)
-        ) {
-          return true;
-        }
+    const isBooleanBinaryExpression = (node) =>
+      node.type === "BinaryExpression" && BOOLEAN_BINARY_OPS.has(node.operator);
 
-        if (n.type === "UnaryExpression" && n.operator === "!") {
-          return true;
-        }
-
-        if (
-          n.type === "CallExpression" &&
-          n.callee.type === "Identifier" &&
-          NULLISH_UTILS.has(n.callee.name)
-        ) {
-          return true;
-        }
-
-        if (n.type === "Identifier" && !includeBooleans) {
-          // Fallback to AST scanning if ts checker is missing
-          let scope = context.sourceCode.getScope
-            ? context.sourceCode.getScope(n)
-            : context.getScope();
-
-          while (scope) {
-            const variable = scope.set.get(n.name);
-
-            if (variable && variable.defs.length > 0) {
-              const [def] = variable.defs;
-
-              const typeAnn =
-                def.node?.id?.typeAnnotation?.typeAnnotation ??
-                def.node?.typeAnnotation?.typeAnnotation;
-
-              if (typeAnn) {
-                if (typeAnn.type === "TSBooleanKeyword") {
-                  return true;
-                }
-
-                if (typeAnn.type === "TSUnionType") {
-                  return typeAnn.types.every(
-                    (t) =>
-                      t.type === "TSBooleanKeyword" ||
-                      t.type === "TSNullKeyword" ||
-                      t.type === "TSUndefinedKeyword" ||
-                      (t.type === "TSLiteralType" &&
-                        typeof t.literal?.value === "boolean"),
-                  );
-                }
-              }
-            }
-
-            scope = scope.upper;
-          }
-        }
-
+    const isBooleanTypeAnnotation = (typeAnn) => {
+      if (!typeAnn) {
         return false;
-      };
-
-      if (!checker || !parserServices) {
-        if (includeBooleans) {
-          return false;
-        }
-
-        return isFallbackBoolean(node);
       }
 
-      try {
-        const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+      if (typeAnn.type === "TSBooleanKeyword") {
+        return true;
+      }
 
-        const type = checker.getTypeAtLocation(tsNode);
+      if (typeAnn.type !== "TSUnionType") {
+        return false;
+      }
 
-        const isStrictBoolean = (t) =>
-          (t.getFlags() &
-            (ts.TypeFlags.Boolean | ts.TypeFlags.BooleanLiteral)) !==
-          0;
+      return typeAnn.types.every(
+        (typeNode) =>
+          typeNode.type === "TSBooleanKeyword" ||
+          typeNode.type === "TSNullKeyword" ||
+          typeNode.type === "TSUndefinedKeyword" ||
+          (typeNode.type === "TSLiteralType" &&
+            typeof typeNode.literal?.value === "boolean"),
+      );
+    };
 
-        if (isStrictBoolean(type)) {
-          return !includeBooleans;
+    const isBooleanTypeFromScope = (node) => {
+      if (node.type === "Literal" && typeof node.value === "boolean") {
+        return true;
+      }
+
+      if (isBooleanBinaryExpression(node)) {
+        return true;
+      }
+
+      if (node.type === "UnaryExpression" && node.operator === "!") {
+        return true;
+      }
+
+      if (hasNullishUtilityCall(node)) {
+        return true;
+      }
+
+      if (node.type !== "Identifier") {
+        return false;
+      }
+
+      let scope = context.sourceCode.getScope
+        ? context.sourceCode.getScope(node)
+        : context.getScope();
+
+      while (scope) {
+        const variable = scope.set.get(node.name);
+        const [def] = variable?.defs ?? [];
+
+        const typeAnn =
+          def?.node?.id?.typeAnnotation?.typeAnnotation ??
+          def?.node?.typeAnnotation?.typeAnnotation;
+
+        if (isBooleanTypeAnnotation(typeAnn)) {
+          return true;
         }
 
-        if (type.isUnion()) {
-          const allBooleanLike = type.types.every(
-            (t) =>
-              (t.getFlags() &
-                (ts.TypeFlags.Boolean |
-                  ts.TypeFlags.BooleanLiteral |
-                  ts.TypeFlags.Null |
-                  ts.TypeFlags.Undefined)) !==
-              0,
-          );
-
-          if (allBooleanLike) {
-            return !includeBooleans;
-          }
-        }
-      } catch (_) {
-        if (includeBooleans) {
-          return false;
-        }
-
-        return isFallbackBoolean(node);
+        scope = scope.upper;
       }
 
       return false;
+    };
+
+    const isBooleanTypeFromTs = (node) => {
+      if (!checker || !parserServices) {
+        return false;
+      }
+
+      const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+      const type = checker.getTypeAtLocation(tsNode);
+
+      const isStrictBoolean = (typeToCheck) =>
+        (typeToCheck.getFlags() &
+          (ts.TypeFlags.Boolean | ts.TypeFlags.BooleanLiteral)) !==
+        0;
+
+      if (isStrictBoolean(type)) {
+        return true;
+      }
+
+      return (
+        type.isUnion() &&
+        type.types.every(
+          (typeToCheck) =>
+            (typeToCheck.getFlags() &
+              (ts.TypeFlags.Boolean |
+                ts.TypeFlags.BooleanLiteral |
+                ts.TypeFlags.Null |
+                ts.TypeFlags.Undefined)) !==
+            0,
+        )
+      );
+    };
+
+    const isBooleanType = (node) => {
+      if (includeBooleans) {
+        return false;
+      }
+
+      try {
+        const fromTs = isBooleanTypeFromTs(node);
+        if (fromTs) {
+          return true;
+        }
+        return isBooleanTypeFromScope(node);
+      } catch {
+        return isBooleanTypeFromScope(node);
+      }
     };
 
     const isNullishLiteral = (node) =>
       (node.type === "Identifier" && node.name === "undefined") ||
       (node.type === "Literal" && node.value === null);
 
-    const report = ({ node, messageId, fixNode }) => {
+    const getNullishComparisonTarget = (node) => {
+      if (
+        node.type !== "BinaryExpression" ||
+        !NULLISH_COMPARISON_OPS.has(node.operator)
+      ) {
+        return undefined;
+      }
+
+      if (isNullishLiteral(node.right)) {
+        return node.left;
+      }
+
+      if (isNullishLiteral(node.left)) {
+        return node.right;
+      }
+
+      return undefined;
+    };
+
+    const report = ({ node, messageId, replacementFn, fixNode }) => {
       context.report({
         node,
         messageId,
         fix: (fixer) =>
           fixer.replaceText(
             node,
-            `${messageId}(${context.sourceCode.getText(fixNode)})`,
+            `${replacementFn}(${context.sourceCode.getText(fixNode)})`,
           ),
       });
     };
@@ -185,21 +202,8 @@ module.exports = {
         return;
       }
 
-      if (
-        node.type === "CallExpression" &&
-        node.callee.type === "Identifier" &&
-        NULLISH_UTILS.has(node.callee.name)
-      ) {
+      if (hasNullishUtilityCall(node) || getNullishComparisonTarget(node)) {
         return;
-      }
-
-      if (node.type === "BinaryExpression") {
-        const isNullishCheck =
-          NULLISH_COMPARISON_OPS.has(node.operator) &&
-          (isNullishLiteral(node.right) || isNullishLiteral(node.left));
-        if (isNullishCheck) {
-          return;
-        }
       }
 
       if (node.type === "UnaryExpression" && node.operator === "!") {
@@ -213,28 +217,31 @@ module.exports = {
       }
 
       if (!isBooleanType(node)) {
-        report({ node, messageId: "nonNullish", fixNode: node });
+        report({
+          node,
+          messageId: "nonNullish",
+          replacementFn: "nonNullish",
+          fixNode: node,
+        });
       }
     };
 
     return {
       BinaryExpression: (node) => {
-        if (!NULLISH_COMPARISON_OPS.has(node.operator)) {
+        const target = getNullishComparisonTarget(node);
+
+        if (!target) {
           return;
         }
 
-        const target = isNullishLiteral(node.right)
-          ? node.left
-          : isNullishLiteral(node.left)
-            ? node.right
-            : undefined;
+        const isPositiveCheck = NULLISH_EQ_OPS.has(node.operator);
 
-        if (target) {
-          const messageId = NULLISH_EQ_OPS.has(node.operator)
-            ? "isNullish"
-            : "nonNullish";
-          report({ node, messageId, fixNode: target });
-        }
+        report({
+          node,
+          messageId: isPositiveCheck ? "isNullish" : "nonNullish",
+          replacementFn: isPositiveCheck ? "isNullish" : "nonNullish",
+          fixNode: target,
+        });
       },
 
       UnaryExpression: (node) => {
@@ -247,6 +254,7 @@ module.exports = {
             report({
               node,
               messageId: "nonNullish",
+              replacementFn: "nonNullish",
               fixNode: node.argument.argument,
             });
           }
@@ -257,7 +265,12 @@ module.exports = {
             return;
           }
 
-          report({ node, messageId: "isNullish", fixNode: node.argument });
+          report({
+            node,
+            messageId: "isNullish",
+            replacementFn: "isNullish",
+            fixNode: node.argument,
+          });
         }
       },
 
