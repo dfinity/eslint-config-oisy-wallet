@@ -2,7 +2,10 @@
 const ts = require("typescript");
 
 const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
-const NULLISH_COMPARISON_OPS = new Set(["===", "!==", "==", "!="]);
+// TODO: shall we expand it with `==` and `!=` ?
+const EQ_OPS = new Set(["==="]);
+const NOT_EQ_OPS = new Set(["!=="]);
+const COMPARISON_OPS = new Set([...EQ_OPS, ...NOT_EQ_OPS]);
 const BOOLEAN_BINARY_OPS = new Set([
   "===",
   "!==",
@@ -13,7 +16,6 @@ const BOOLEAN_BINARY_OPS = new Set([
   ">=",
   "<=",
 ]);
-const NULLISH_EQ_OPS = new Set(["===", "=="]);
 const KNOWN_BOOLEAN_METHODS = new Set([
   "includes",
   "startsWith",
@@ -313,6 +315,15 @@ module.exports = {
             fixNode: node.argument,
           });
         }
+
+        const replacementFn = getNullishReplacement(node.operator);
+
+        report({
+          node,
+          messageId: replacementFn,
+          replacementFn,
+          fixNode: target,
+        });
       },
 
       IfStatement: checkTestCondition,
