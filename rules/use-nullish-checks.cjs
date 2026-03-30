@@ -232,7 +232,15 @@ module.exports = {
         return;
       }
 
+<<<<<<< fix/Rule-use-nullish-checks-correctly-resolves
       if (isNullishUtilityCall(node) || getNullishComparisonTarget(node)) {
+=======
+      if (isNullishUtilityCall(node)) {
+        return;
+      }
+
+      if (getNullishComparisonTarget(node)) {
+>>>>>>> main
         return;
       }
 
@@ -242,6 +250,7 @@ module.exports = {
 
       if (node.type === "LogicalExpression") {
         checkCondition(node.left);
+<<<<<<< fix/Rule-use-nullish-checks-correctly-resolves
         checkCondition(node.right);
         return;
       }
@@ -256,6 +265,27 @@ module.exports = {
       }
     };
 
+=======
+
+        checkCondition(node.right);
+
+        return;
+      }
+
+      if (shouldTreatAsBooleanCondition(node)) {
+        return;
+      }
+
+      report({
+        node,
+        messageId: "nonNullish",
+        replacementFn: "nonNullish",
+        fixNode: node,
+      });
+    };
+
+    // ESLint AST puts the condition of if/while/for/ternary in `node.test`, so we analyse that specifically
+>>>>>>> main
     const checkTestCondition = (node) => {
       if (node.test) {
         checkCondition(node.test);
