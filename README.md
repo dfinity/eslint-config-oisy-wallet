@@ -142,6 +142,48 @@ export default [
 
 Note: To override local rules, make sure you have the `eslint-local-rules.cjs` file at the root as described above.
 
+## 📐 Custom Rules
+
+This configuration ships with several custom local rules:
+
+| Rule                                        | Description                                                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `local-rules/use-nullish-checks`            | Enforce the use of `isNullish()` / `nonNullish()` instead of direct truthiness checks for nullish assertions. |
+| `local-rules/use-nullish-type-wrapper`      | Enforce proper usage of nullish type wrappers.                                                                |
+| `local-rules/prefer-object-params`          | Prefer a single object parameter over multiple positional parameters.                                         |
+| `local-rules/no-svelte-store-in-api`        | Disallow importing Svelte stores in API modules.                                                              |
+| `local-rules/no-relative-imports`           | Disallow relative imports; prefer alias paths.                                                                |
+| `local-rules/explicit-non-void-return-type` | Require explicit return types for functions that return a value.                                              |
+
+### `use-nullish-checks` Options
+
+The rule accepts an optional configuration object:
+
+| Option            | Type      | Default | Description                                                                                                                                                                                                                                      |
+| ----------------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `includeBooleans` | `boolean` | `false` | When `true`, also enforce nullish checks on variables typed as `boolean` (or `boolean \| null \| undefined`). Boolean expressions — comparisons, known boolean methods, literals, and negations — are always allowed regardless of this setting. |
+
+Example:
+
+```javascript
+// Enable the rule with boolean variable checking
+"local-rules/use-nullish-checks": ["error", { includeBooleans: true }]
+```
+
+With `includeBooleans: true`:
+
+```typescript
+const b: boolean = true;
+
+// ❌ Error — boolean variable should use nonNullish()
+if (b) {
+}
+
+// ✅ OK — boolean expression, always allowed
+if (a === b) {
+}
+```
+
 ## 🛠️ TypeScript Support
 
 If your project uses TypeScript, make sure you have a `tsconfig.json` file in your project root.
