@@ -66,6 +66,16 @@ ruleTester.run("use-nullish-checks", rule, {
       options: [{ includeBooleans: false }],
       filename,
     },
+    {
+      code: "if (a === b) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+    },
+    {
+      code: "if (!(a === b)) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+    },
   ],
 
   invalid: [
@@ -119,20 +129,6 @@ ruleTester.run("use-nullish-checks", rule, {
       filename,
       errors: [{ messageId: "nonNullish" }],
       output: "if (nonNullish(s)) {}",
-    },
-    {
-      code: "if (a === b) {}",
-      options: [{ includeBooleans: true }],
-      filename,
-      errors: [{ messageId: "nonNullish" }],
-      output: "if (nonNullish(a === b)) {}",
-    },
-    {
-      code: "if (!(a === b)) {}",
-      options: [{ includeBooleans: true }],
-      filename,
-      errors: [{ messageId: "isNullish" }],
-      output: "if (isNullish(a === b)) {}",
     },
     {
       code: "const b: boolean = true; if (b) {}",
