@@ -2,6 +2,7 @@
 const ts = require("typescript");
 
 const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
+
 // TODO: shall we expand it with `==` and `!=` ?
 const EQ_OPS = new Set(["==="]);
 const NOT_EQ_OPS = new Set(["!=="]);
@@ -285,18 +286,25 @@ module.exports = {
           node.argument.type === "UnaryExpression" &&
           node.argument.operator === "!"
         ) {
-          if (!shouldTreatAsBooleanCondition(node.argument.argument)) {
-            report({
-              node,
-              messageId: "nonNullish",
-              replacementFn: "nonNullish",
-              fixNode: node.argument.argument,
-            });
+          if (shouldTreatAsBooleanCondition(node.argument.argument)) {
+            return;
           }
-        } else if (
-          node.operator === "!" &&
-          !shouldTreatAsBooleanCondition(node.argument)
-        ) {
+
+          report({
+            node,
+            messageId: "nonNullish",
+            replacementFn: "nonNullish",
+            fixNode: node.argument.argument,
+          });
+
+          return;
+        }
+
+        if (node.operator === "!") {
+          if (shouldTreatAsBooleanCondition(node.argument)) {
+            return;
+          }
+
           const { parent } = node;
 
           if (parent?.type === "UnaryExpression" && parent.operator === "!") {

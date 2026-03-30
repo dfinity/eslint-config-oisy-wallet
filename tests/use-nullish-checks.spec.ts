@@ -68,30 +68,39 @@ ruleTester.run("use-nullish-checks", rule, {
     },
     {
       code: "if (a === b) {}",
+      filename,
     },
     {
       code: "if (a !== b) {}",
+      filename,
     },
     {
       code: "if (a > b) {}",
+      filename,
     },
     {
       code: "if (a < b) {}",
+      filename,
     },
     {
       code: "if (!nonNullish(foo)) {}",
+      filename,
     },
     {
       code: "if (isNullish(foo)) {}",
+      filename,
     },
     {
       code: "const b: boolean = true; if (b) {}",
+      filename,
     },
     {
       code: "const b: boolean | undefined = undefined; if (b) {}",
+      filename,
     },
     {
       code: "const foo: boolean | null | undefined = null; if (foo) {}",
+      filename,
     },
   ],
 
