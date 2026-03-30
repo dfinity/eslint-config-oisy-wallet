@@ -72,6 +72,13 @@ ruleTester.run("use-nullish-checks", rule, {
       output: "nonNullish(foo);",
     },
     {
+      code: "const foo: string | undefined = undefined; if (foo) {}",
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output:
+        "const foo: string | undefined = undefined; if (nonNullish(foo)) {}",
+    },
+    {
       code: "const foo: string | undefined = undefined; if (!foo) {}",
       filename,
       errors: [{ messageId: "isNullish" }],
@@ -79,10 +86,53 @@ ruleTester.run("use-nullish-checks", rule, {
         "const foo: string | undefined = undefined; if (isNullish(foo)) {}",
     },
     {
+      code: "const foo: number | undefined = undefined; const bar = foo ? 1 : 2;",
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output:
+        "const foo: number | undefined = undefined; const bar = nonNullish(foo) ? 1 : 2;",
+    },
+    {
+      code: "if (s && n) {}",
+      filename,
+      errors: [{ messageId: "nonNullish" }, { messageId: "nonNullish" }],
+      output: "if (nonNullish(s) && nonNullish(n)) {}",
+    },
+    {
+      code: "if (a || b) {}",
+      filename,
+      errors: [{ messageId: "nonNullish" }, { messageId: "nonNullish" }],
+      output: "if (nonNullish(a) || nonNullish(b)) {}",
+    },
+    {
       code: "if (!!s) {}",
       filename,
       errors: [{ messageId: "nonNullish" }],
       output: "if (nonNullish(s)) {}",
+    },
+    {
+      code: "const x = foo ? (bar ? 1 : 2) : 3;",
+      filename,
+      errors: [{ messageId: "nonNullish" }, { messageId: "nonNullish" }],
+      output: "const x = nonNullish(foo) ? (nonNullish(bar) ? 1 : 2) : 3;",
+    },
+    {
+      code: "while (foo) {}",
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "while (nonNullish(foo)) {}",
+    },
+    {
+      code: "do {} while (foo);",
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "do {} while (nonNullish(foo));",
+    },
+    {
+      code: "for (; foo; ) {}",
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "for (; nonNullish(foo); ) {}",
     },
   ],
 });
