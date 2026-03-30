@@ -45,20 +45,6 @@ ruleTester.run("use-nullish-checks", rule, {
       filename,
     },
     {
-      code: "if (a === b) {}",
-      options: [{ includeBooleans: false }],
-      filename,
-    },
-    {
-      code: "const b: boolean = true; if (b) {}",
-      filename,
-    },
-    {
-      code: "const b: boolean = true; if (b) {}",
-      options: [{ includeBooleans: false }],
-      filename,
-    },
-    {
       code: "const b: boolean = true; if (b) {}",
       filename,
     },
@@ -68,6 +54,16 @@ ruleTester.run("use-nullish-checks", rule, {
     },
     {
       code: "const foo: boolean | null | undefined = null; if (foo) {}",
+      filename,
+    },
+    {
+      code: "if (a === b) {}",
+      options: [{ includeBooleans: false }],
+      filename,
+    },
+    {
+      code: "const b: boolean = true; if (b) {}",
+      options: [{ includeBooleans: false }],
       filename,
     },
   ],
