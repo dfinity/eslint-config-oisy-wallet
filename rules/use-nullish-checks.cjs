@@ -42,6 +42,13 @@ module.exports = {
               "Boolean expressions (comparisons, known boolean methods, literals, negations) are always allowed. " +
               "Defaults to false.",
           },
+          allowFindUndefinedCheck: {
+            type: "boolean",
+            description:
+              "When true, allow direct nullish comparisons on the result of .find() calls " +
+              "(e.g. array.find(x => x) === undefined). " +
+              "Defaults to false.",
+          },
         },
         additionalProperties: false,
       },
@@ -49,7 +56,11 @@ module.exports = {
   },
 
   create: (context) => {
-    const shouldLintBooleans = context.options[0]?.includeBooleans ?? false;
+    const [options] = context.options;
+
+    const shouldLintBooleans = options?.includeBooleans ?? false;
+
+    const allowFindUndefinedCheck = options?.allowFindUndefinedCheck ?? false;
 
     const { sourceCode } = context;
 
@@ -204,6 +215,12 @@ module.exports = {
       (expression.type === "Identifier" && expression.name === "undefined") ||
       (expression.type === "Literal" && expression.value === null);
 
+    const isFindCall = (node) =>
+      node.type === "CallExpression" &&
+      node.callee.type === "MemberExpression" &&
+      node.callee.property.type === "Identifier" &&
+      node.callee.property.name === "find";
+
     const getNullishComparisonTarget = (node) => {
       if (node.type !== "BinaryExpression") {
         return;
@@ -286,6 +303,10 @@ module.exports = {
         const target = getNullishComparisonTarget(node);
 
         if (!target) {
+          return;
+        }
+
+        if (allowFindUndefinedCheck && isFindCall(target)) {
           return;
         }
 
