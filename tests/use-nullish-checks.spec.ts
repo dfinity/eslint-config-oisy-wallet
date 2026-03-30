@@ -76,6 +76,16 @@ ruleTester.run("use-nullish-checks", rule, {
       options: [{ includeBooleans: true }],
       filename,
     },
+    {
+      code: "array.find(item => item) === null;",
+      options: [{ allowFindUndefinedCheck: true }],
+      filename,
+    },
+    {
+      code: "array.find(item => item) !== undefined;",
+      options: [{ allowFindUndefinedCheck: true }],
+      filename,
+    },
   ],
 
   invalid: [
@@ -175,6 +185,20 @@ ruleTester.run("use-nullish-checks", rule, {
       filename,
       errors: [{ messageId: "nonNullish" }],
       output: "for (; nonNullish(foo); ) {}",
+    },
+    {
+      code: "array.find(item => item) === null;",
+      options: [{ allowFindUndefinedCheck: false }],
+      filename,
+      errors: [{ messageId: "isNullish" }],
+      output: "isNullish(array.find(item => item));",
+    },
+    {
+      code: "array.find(item => item) !== undefined;",
+      options: [{ allowFindUndefinedCheck: false }],
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "nonNullish(array.find(item => item));",
     },
   ],
 });

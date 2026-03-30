@@ -159,15 +159,19 @@ This configuration ships with several custom local rules:
 
 The rule accepts an optional configuration object:
 
-| Option            | Type      | Default | Description                                                                                                                                                                                                                                      |
-| ----------------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `includeBooleans` | `boolean` | `false` | When `true`, also enforce nullish checks on variables typed as `boolean` (or `boolean \| null \| undefined`). Boolean expressions — comparisons, known boolean methods, literals, and negations — are always allowed regardless of this setting. |
+| Option                    | Type      | Default | Description                                                                                                                                                                                                                                      |
+| ------------------------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `includeBooleans`         | `boolean` | `false` | When `true`, also enforce nullish checks on variables typed as `boolean` (or `boolean \| null \| undefined`). Boolean expressions — comparisons, known boolean methods, literals, and negations — are always allowed regardless of this setting. |
+| `allowFindUndefinedCheck` | `boolean` | `false` | When `true`, allow direct nullish comparisons on the result of `.find()` calls (e.g. `array.find(x => x) === undefined`). Useful because `.find()` legitimately returns `undefined` when no match is found.                                      |
 
 Example:
 
 ```javascript
 // Enable the rule with boolean variable checking
 "local-rules/use-nullish-checks": ["error", { includeBooleans: true }]
+
+// Allow .find() results to be compared with undefined/null directly
+"local-rules/use-nullish-checks": ["error", { allowFindUndefinedCheck: true }]
 ```
 
 With `includeBooleans: true`:
@@ -181,6 +185,18 @@ if (b) {
 
 // ✅ OK — boolean expression, always allowed
 if (a === b) {
+}
+```
+
+With `allowFindUndefinedCheck: true`:
+
+```typescript
+// ✅ OK — .find() result compared with undefined is allowed
+if (array.find((item) => item.id === id) === undefined) {
+}
+
+// ✅ OK — .find() result compared with null is allowed
+if (array.find((item) => item.id === id) !== null) {
 }
 ```
 
