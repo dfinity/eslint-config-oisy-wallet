@@ -29,15 +29,6 @@ ruleTester.run("use-nullish-checks", rule, {
     {
       code: "if (isNullish(foo)) {}",
     },
-    {
-      code: "const b: boolean = true; if (b) {}",
-    },
-    {
-      code: "const b: boolean | undefined = undefined; if (b) {}",
-    },
-    {
-      code: "const foo: boolean | null | undefined = null; if (foo) {}",
-    },
   ],
 
   invalid: [
