@@ -247,6 +247,7 @@ module.exports = {
       });
     };
 
+    // ESLint AST puts the condition of if/while/for/ternary in `node.test`, so we analyse that specifically
     const checkTestCondition = (node) => {
       if (node.test) {
         checkCondition(node.test);
