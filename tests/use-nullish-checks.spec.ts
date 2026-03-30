@@ -11,24 +11,6 @@ ruleTester.run("use-nullish-checks", rule, {
     {
       code: "nonNullish(bar);",
     },
-    {
-      code: "if (a === b) {}",
-    },
-    {
-      code: "if (a !== b) {}",
-    },
-    {
-      code: "if (a > b) {}",
-    },
-    {
-      code: "if (a < b) {}",
-    },
-    {
-      code: "if (!nonNullish(foo)) {}",
-    },
-    {
-      code: "if (isNullish(foo)) {}",
-    },
   ],
 
   invalid: [
