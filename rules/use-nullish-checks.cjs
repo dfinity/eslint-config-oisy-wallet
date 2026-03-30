@@ -1,5 +1,6 @@
-const EQ_OPS = new Set(["===", "=="]);
-const NOT_EQ_OPS = new Set(["!==", "!="]);
+// TODO: shall we expand it with `==` and `!=` ?
+const EQ_OPS = new Set(["==="]);
+const NOT_EQ_OPS = new Set(["!=="]);
 const COMPARISON_OPS = new Set([...EQ_OPS, ...NOT_EQ_OPS]);
 
 module.exports = {
