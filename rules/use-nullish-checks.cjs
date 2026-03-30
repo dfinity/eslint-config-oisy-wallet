@@ -194,10 +194,11 @@ module.exports = {
       (expression.type === "Literal" && expression.value === null);
 
     const getNullishComparisonTarget = (node) => {
-      if (
-        node.type !== "BinaryExpression" ||
-        !COMPARISON_OPS.has(node.operator)
-      ) {
+      if (node.type !== "BinaryExpression") {
+        return;
+      }
+
+      if (!COMPARISON_OPS.has(node.operator)) {
         return;
       }
 
@@ -309,15 +310,6 @@ module.exports = {
             fixNode: node.argument,
           });
         }
-
-        const replacementFn = getNullishReplacement(node.operator);
-
-        report({
-          node,
-          messageId: replacementFn,
-          replacementFn,
-          fixNode: target,
-        });
       },
 
       IfStatement: checkTestCondition,
