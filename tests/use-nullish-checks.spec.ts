@@ -71,5 +71,18 @@ ruleTester.run("use-nullish-checks", rule, {
       errors: [{ messageId: "nonNullish" }],
       output: "nonNullish(foo);",
     },
+    {
+      code: "const foo: string | undefined = undefined; if (!foo) {}",
+      filename,
+      errors: [{ messageId: "isNullish" }],
+      output:
+        "const foo: string | undefined = undefined; if (isNullish(foo)) {}",
+    },
+    {
+      code: "if (!!s) {}",
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "if (nonNullish(s)) {}",
+    },
   ],
 });
