@@ -37,6 +37,10 @@ module.exports = {
         properties: {
           includeBooleans: {
             type: "boolean",
+            description:
+              "When true, also enforce nullish checks on variables typed as boolean or nullish boolean. " +
+              "Boolean expressions (comparisons, known boolean methods, literals, negations) are always allowed. " +
+              "Defaults to false.",
           },
         },
         additionalProperties: false,
@@ -176,9 +180,16 @@ module.exports = {
       );
     };
 
+    const isBooleanExpression = (node) =>
+      isBooleanBinaryExpression(node) ||
+      hasKnownBooleanMethodCall(node) ||
+      isNullishUtilityCall(node) ||
+      (node.type === "Literal" && typeof node.value === "boolean") ||
+      (node.type === "UnaryExpression" && node.operator === "!");
+
     const shouldTreatAsBooleanCondition = (node) => {
       if (shouldLintBooleans) {
-        return false;
+        return isBooleanExpression(node);
       }
 
       try {
