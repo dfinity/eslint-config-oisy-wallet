@@ -1,4 +1,3 @@
-/* eslint-disable local-rules/use-nullish-checks */
 const ts = require("typescript");
 
 const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
