@@ -210,6 +210,49 @@ module.exports = {
       });
     };
 
+    const checkCondition = (node) => {
+      if (!node) {
+        return;
+      }
+
+      if (isNullishUtilityCall(node)) {
+        return;
+      }
+
+      if (getNullishComparisonTarget(node)) {
+        return;
+      }
+
+      if (node.type === "UnaryExpression" && node.operator === "!") {
+        return;
+      }
+
+      if (node.type === "LogicalExpression") {
+        checkCondition(node.left);
+
+        checkCondition(node.right);
+
+        return;
+      }
+
+      if (shouldTreatAsBooleanCondition(node)) {
+        return;
+      }
+
+      report({
+        node,
+        messageId: "nonNullish",
+        replacementFn: "nonNullish",
+        fixNode: node,
+      });
+    };
+
+    const checkTestCondition = (node) => {
+      if (node.test) {
+        checkCondition(node.test);
+      }
+    };
+
     return {
       BinaryExpression: (node) => {
         const target = getNullishComparisonTarget(node);
@@ -267,6 +310,12 @@ module.exports = {
           });
         }
       },
+
+      IfStatement: checkTestCondition,
+      WhileStatement: checkTestCondition,
+      DoWhileStatement: checkTestCondition,
+      ForStatement: checkTestCondition,
+      ConditionalExpression: checkTestCondition,
     };
   },
 };
