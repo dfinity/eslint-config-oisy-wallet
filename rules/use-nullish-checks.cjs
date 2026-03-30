@@ -6,16 +6,7 @@ const NULLISH_UTILS = new Set(["isNullish", "nonNullish"]);
 const EQ_OPS = new Set(["==="]);
 const NOT_EQ_OPS = new Set(["!=="]);
 const COMPARISON_OPS = new Set([...EQ_OPS, ...NOT_EQ_OPS]);
-const BOOLEAN_BINARY_OPS = new Set([
-  "===",
-  "!==",
-  "==",
-  "!=",
-  ">",
-  "<",
-  ">=",
-  "<=",
-]);
+const BOOLEAN_BINARY_OPS = new Set([...COMPARISON_OPS, ">", "<", ">=", "<="]);
 const KNOWN_BOOLEAN_METHODS = new Set([
   "includes",
   "startsWith",
@@ -202,7 +193,7 @@ module.exports = {
     const getNullishComparisonTarget = (node) => {
       if (
         node.type !== "BinaryExpression" ||
-        !NULLISH_COMPARISON_OPS.has(node.operator)
+        !COMPARISON_OPS.has(node.operator)
       ) {
         return;
       }
@@ -217,7 +208,7 @@ module.exports = {
     };
 
     const getNullishReplacement = (operator) =>
-      NULLISH_EQ_OPS.has(operator) ? "isNullish" : "nonNullish";
+      EQ_OPS.has(operator) ? "isNullish" : "nonNullish";
 
     const report = ({ node, messageId, replacementFn, fixNode }) => {
       context.report({
