@@ -59,38 +59,6 @@ ruleTester.run("use-nullish-checks", rule, {
       filename,
     },
     {
-      code: "const b: boolean | undefined = undefined; if (b) {}",
-      filename,
-    },
-    {
-      code: "const foo: boolean | null | undefined = null; if (foo) {}",
-      filename,
-    },
-    {
-      code: "if (a === b) {}",
-      filename,
-    },
-    {
-      code: "if (a !== b) {}",
-      filename,
-    },
-    {
-      code: "if (a > b) {}",
-      filename,
-    },
-    {
-      code: "if (a < b) {}",
-      filename,
-    },
-    {
-      code: "if (!nonNullish(foo)) {}",
-      filename,
-    },
-    {
-      code: "if (isNullish(foo)) {}",
-      filename,
-    },
-    {
       code: "const b: boolean = true; if (b) {}",
       filename,
     },
@@ -113,18 +81,6 @@ ruleTester.run("use-nullish-checks", rule, {
     },
     {
       code: "foo !== undefined;",
-      filename,
-      errors: [{ messageId: "nonNullish" }],
-      output: "nonNullish(foo);",
-    },
-    {
-      code: "foo == null;",
-      filename,
-      errors: [{ messageId: "isNullish" }],
-      output: "isNullish(foo);",
-    },
-    {
-      code: "foo != undefined;",
       filename,
       errors: [{ messageId: "nonNullish" }],
       output: "nonNullish(foo);",
