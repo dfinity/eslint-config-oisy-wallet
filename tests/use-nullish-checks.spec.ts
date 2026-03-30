@@ -56,6 +56,16 @@ ruleTester.run("use-nullish-checks", rule, {
       code: "const foo: boolean | null | undefined = null; if (foo) {}",
       filename,
     },
+    {
+      code: "if (a === b) {}",
+      options: [{ includeBooleans: false }],
+      filename,
+    },
+    {
+      code: "const b: boolean = true; if (b) {}",
+      options: [{ includeBooleans: false }],
+      filename,
+    },
   ],
 
   invalid: [
@@ -109,6 +119,42 @@ ruleTester.run("use-nullish-checks", rule, {
       filename,
       errors: [{ messageId: "nonNullish" }],
       output: "if (nonNullish(s)) {}",
+    },
+    {
+      code: "if (a === b) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "if (nonNullish(a === b)) {}",
+    },
+    {
+      code: "if (!(a === b)) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+      errors: [{ messageId: "isNullish" }],
+      output: "if (isNullish(a === b)) {}",
+    },
+    {
+      code: "const b: boolean = true; if (b) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "const b: boolean = true; if (nonNullish(b)) {}",
+    },
+    {
+      code: "const b: boolean | undefined = undefined; if (b) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+      errors: [{ messageId: "nonNullish" }],
+      output: "const b: boolean | undefined = undefined; if (nonNullish(b)) {}",
+    },
+    {
+      code: "const foo: boolean | null | undefined = null; if (!foo) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+      errors: [{ messageId: "isNullish" }],
+      output:
+        "const foo: boolean | null | undefined = null; if (isNullish(foo)) {}",
     },
     {
       code: "const x = foo ? (bar ? 1 : 2) : 3;",

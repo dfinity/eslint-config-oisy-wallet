@@ -31,10 +31,22 @@ module.exports = {
         "Use nonNullish() instead of direct variable check for nullish checks.",
     },
     fixable: "code",
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          includeBooleans: {
+            type: "boolean",
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
 
   create: (context) => {
+    const shouldLintBooleans = context.options[0]?.includeBooleans ?? false;
+
     const { sourceCode } = context;
 
     const parserServices = sourceCode?.parserServices ?? context.parserServices;
@@ -165,6 +177,10 @@ module.exports = {
     };
 
     const shouldTreatAsBooleanCondition = (node) => {
+      if (shouldLintBooleans) {
+        return false;
+      }
+
       try {
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         return isBooleanTypeFromTs(node) || isBooleanTypeFromScope(node);
