@@ -1,3 +1,7 @@
+const EQ_OPS = new Set(["===", "=="]);
+const NOT_EQ_OPS = new Set(["!==", "!="]);
+const COMPARISON_OPS = new Set([...EQ_OPS, ...NOT_EQ_OPS]);
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -17,34 +21,60 @@ module.exports = {
   },
 
   create: (context) => {
-    const binaryCheck = (node) => {
-      if (node.type === "BinaryExpression") {
-        return (
-          (node.operator === "===" || node.operator === "!==") &&
-          ((node.right.type === "Identifier" &&
-            node.right.name === "undefined") ||
-            (node.right.type === "Literal" && node.right.value === null))
-        );
+    const { sourceCode } = context;
+
+    const isNullishLiteral = (expression) =>
+      (expression.type === "Identifier" && expression.name === "undefined") ||
+      (expression.type === "Literal" && expression.value === null);
+
+    const getNullishComparisonTarget = (node) => {
+      if (
+        node.type !== "BinaryExpression" ||
+        !COMPARISON_OPS.has(node.operator)
+      ) {
+        return;
+      }
+
+      if (isNullishLiteral(node.right)) {
+        return node.left;
+      }
+
+      if (isNullishLiteral(node.left)) {
+        return node.right;
       }
     };
 
-    const binaryReportCheck = (node) => {
+    const getNullishReplacement = (operator) =>
+      EQ_OPS.has(operator) ? "isNullish" : "nonNullish";
+
+    const report = ({ node, messageId, replacementFn, fixNode }) => {
       context.report({
         node,
-        messageId: node.operator === "===" ? "isNullish" : "nonNullish",
+        messageId,
         fix: (fixer) =>
           fixer.replaceText(
             node,
-            `${node.operator === "===" ? "isNullish" : "nonNullish"}(${context.sourceCode.getText(node.left)})`,
+            `${replacementFn}(${sourceCode ? sourceCode.getText(fixNode) : context.getSourceCode().getText(fixNode)})`,
           ),
       });
     };
 
     return {
       BinaryExpression: (node) => {
-        if (binaryCheck(node)) {
-          binaryReportCheck(node);
+        const target = getNullishComparisonTarget(node);
+
+        if (!target) {
+          return;
         }
+
+        const replacementFn = getNullishReplacement(node.operator);
+
+        report({
+          node,
+          messageId: replacementFn,
+          replacementFn,
+          fixNode: target,
+        });
       },
     };
   },
