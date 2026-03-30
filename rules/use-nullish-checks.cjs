@@ -249,7 +249,7 @@ module.exports = {
         }
 
         if (node.operator === "!") {
-          if (shouldTreatAsBooleanCondition(node.argument.argument)) {
+          if (shouldTreatAsBooleanCondition(node.argument)) {
             return;
           }
 
