@@ -1,5 +1,5 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-const rule = require("../rules/use-option-type-wrapper.cjs");
+const rule = require("../rules/use-nullish-type-wrapper.cjs");
 
 const ruleTester = new RuleTester();
 
@@ -25,23 +25,23 @@ ruleTester.run("use-option-type-wrapper", rule, {
   invalid: [
     {
       code: `type MyType = string | null | undefined;`,
-      errors: [{ messageId: "useOption", data: { type: "string" } }],
-      output: `type MyType = Option<string>;`,
+      errors: [{ messageId: "useNullish", data: { type: "string" } }],
+      output: `type MyType = Nullish<string>;`,
     },
     {
       code: `type MyType = number | null | undefined;`,
-      errors: [{ messageId: "useOption", data: { type: "number" } }],
-      output: `type MyType = Option<number>;`,
+      errors: [{ messageId: "useNullish", data: { type: "number" } }],
+      output: `type MyType = Nullish<number>;`,
     },
     {
       code: `type MyType = MyCustomType | null | undefined;`,
-      errors: [{ messageId: "useOption", data: { type: "MyCustomType" } }],
-      output: `type MyType = Option<MyCustomType>;`,
+      errors: [{ messageId: "useNullish", data: { type: "MyCustomType" } }],
+      output: `type MyType = Nullish<MyCustomType>;`,
     },
     {
       code: `type MyType = boolean | null | undefined;`,
-      errors: [{ messageId: "useOption", data: { type: "boolean" } }],
-      output: `type MyType = Option<boolean>;`,
+      errors: [{ messageId: "useNullish", data: { type: "boolean" } }],
+      output: `type MyType = Nullish<boolean>;`,
     },
   ],
 });
