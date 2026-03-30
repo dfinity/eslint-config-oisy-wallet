@@ -102,7 +102,10 @@ module.exports = {
         def?.node?.id?.typeAnnotation?.typeAnnotation ??
         def?.node?.typeAnnotation?.typeAnnotation;
 
-      return typeAnn ?? findVariableTypeAnnotation(scope.upper, variableName);
+      return (
+        typeAnn ??
+        findVariableTypeAnnotation({ scope: scope.upper, variableName })
+      );
     };
 
     const isBooleanTypeFromScope = (node) => {
