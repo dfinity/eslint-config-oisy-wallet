@@ -1,4 +1,6 @@
+const { nonNullish, isNullish } = require("@dfinity/utils");
 const inferReturnType = (node) => {
+  // eslint-disable-next-line local-rules/use-nullish-checks -- node.async is a boolean
   if (node.async) {
     if (
       node.body.type === "BlockStatement" &&
@@ -23,7 +25,7 @@ const inferReturnType = (node) => {
   if (returnStatements.length > 0) {
     const returnArgument = returnStatements[0].argument;
 
-    if (returnArgument) {
+    if (nonNullish(returnArgument)) {
       if (returnArgument.type === "Literal") {
         return typeof returnArgument.value;
       }
@@ -40,7 +42,7 @@ const inferReturnType = (node) => {
 const checkReturnType = ({ node, context }) => {
   const { returnType } = node;
 
-  if (!returnType) {
+  if (isNullish(returnType)) {
     const inferredType = inferReturnType(node);
 
     if (inferredType !== "void" && inferredType !== "Promise<void>") {

@@ -15,6 +15,17 @@ const KNOWN_BOOLEAN_METHODS = new Set([
   "some",
   "every",
 ]);
+const BOOLEAN_NAME_PREFIXES = [
+  "is",
+  "has",
+  "should",
+  "can",
+  "will",
+  "does",
+  "did",
+  "was",
+  "are",
+];
 
 module.exports = {
   meta: {
@@ -82,6 +93,42 @@ module.exports = {
     const isBooleanBinaryExpression = (node) =>
       node.type === "BinaryExpression" && BOOLEAN_BINARY_OPS.has(node.operator);
 
+    const getExpressionName = (node) => {
+      if (node.type === "Identifier") {
+        return node.name;
+      }
+      if (node.type === "CallExpression") {
+        if (node.callee.type === "Identifier") {
+          return node.callee.name;
+        }
+        if (
+          node.callee.type === "MemberExpression" &&
+          node.callee.property.type === "Identifier"
+        ) {
+          return node.callee.property.name;
+        }
+      }
+      if (
+        node.type === "MemberExpression" &&
+        node.property.type === "Identifier"
+      ) {
+        return node.property.name;
+      }
+    };
+
+    const hasBooleanishName = (node) => {
+      const name = getExpressionName(node);
+      if (!name) {
+        return false;
+      }
+      return BOOLEAN_NAME_PREFIXES.some(
+        (prefix) =>
+          name.length > prefix.length &&
+          name.startsWith(prefix) &&
+          name[prefix.length] === name[prefix.length].toUpperCase(),
+      );
+    };
+
     const isBooleanTypeAnnotation = (typeAnn) => {
       if (!typeAnn) {
         return false;
@@ -144,6 +191,10 @@ module.exports = {
         return true;
       }
 
+      if (hasBooleanishName(node)) {
+        return true;
+      }
+
       if (node.type !== "Identifier") {
         return false;
       }
@@ -195,6 +246,7 @@ module.exports = {
       isBooleanBinaryExpression(node) ||
       hasKnownBooleanMethodCall(node) ||
       isNullishUtilityCall(node) ||
+      hasBooleanishName(node) ||
       (node.type === "Literal" && typeof node.value === "boolean") ||
       (node.type === "UnaryExpression" && node.operator === "!");
 

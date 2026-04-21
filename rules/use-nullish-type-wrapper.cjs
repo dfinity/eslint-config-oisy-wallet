@@ -1,3 +1,4 @@
+const { nonNullish } = require("@dfinity/utils");
 module.exports = {
   meta: {
     type: "suggestion",
@@ -26,11 +27,13 @@ module.exports = {
         );
 
         const typeText =
-          type.type === "TSTypeReference" && type.typeName && type.typeName.name
+          type.type === "TSTypeReference" &&
+          nonNullish(type.typeName) &&
+          nonNullish(type.typeName.name)
             ? type.typeName.name
             : context.getSourceCode().getText(type);
 
-        if (type) {
+        if (nonNullish(type)) {
           try {
             context.report({
               node,
