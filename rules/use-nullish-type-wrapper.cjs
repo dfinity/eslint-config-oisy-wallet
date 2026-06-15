@@ -28,7 +28,7 @@ module.exports = {
         const typeText =
           type.type === "TSTypeReference" && type.typeName && type.typeName.name
             ? type.typeName.name
-            : context.getSourceCode().getText(type);
+            : context.sourceCode.getText(type);
 
         if (type) {
           try {

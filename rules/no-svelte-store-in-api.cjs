@@ -10,7 +10,7 @@ module.exports = {
   },
   create: (context) => ({
     ImportDeclaration: (node) => {
-      const filePath = context.getFilename();
+      const filePath = context.filename;
 
       const {
         source: { value },

@@ -2,8 +2,8 @@ import localRules from "eslint-plugin-local-rules";
 import preferArrow from "eslint-plugin-prefer-arrow";
 import { join } from "node:path";
 import { existsSync } from "node:fs";
-import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat";
-import _import from "eslint-plugin-import";
+import { includeIgnoreFile } from "@eslint/compat";
+import _import from "eslint-plugin-import-x";
 import { fileURLToPath } from "node:url";
 import { nonNullish } from "@dfinity/utils";
 
@@ -46,7 +46,7 @@ export const eslintRules = [
     plugins: {
       "local-rules": localRules,
       "prefer-arrow": preferArrow,
-      import: fixupPluginRules(_import),
+      import: _import,
     },
 
     rules: {

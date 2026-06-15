@@ -11,7 +11,7 @@ A shareable ESLint configuration library for Oisy Wallet projects, supporting bo
 </div>
 
 > [!NOTE]
-> This configuration is currently compatible with ESLint 8.
+> This configuration is currently compatible with ESLint 9 and ESLint 10.
 
 ## 🖥️ Installation
 
