@@ -148,9 +148,7 @@ module.exports = {
         return false;
       }
 
-      const initialScope = sourceCode?.getScope
-        ? sourceCode.getScope(node)
-        : context.getScope();
+      const initialScope = sourceCode.getScope(node);
 
       const typeAnn = findVariableTypeAnnotation({
         scope: initialScope,
@@ -249,7 +247,7 @@ module.exports = {
         fix: (fixer) =>
           fixer.replaceText(
             node,
-            `${replacementFn}(${sourceCode ? sourceCode.getText(fixNode) : context.getSourceCode().getText(fixNode)})`,
+            `${replacementFn}(${sourceCode.getText(fixNode)})`,
           ),
       });
     };
