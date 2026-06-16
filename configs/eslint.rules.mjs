@@ -66,6 +66,7 @@ export const eslintRules = [
       "func-style": "error",
 
       "local-rules/prefer-object-params": "warn",
+      "local-rules/use-nullish-checks": "warn",
 
       // We want to enforce ONLY `'newlines-between': 'never'`. The order/sorting is handled elsewhere.
       "import/order": [
