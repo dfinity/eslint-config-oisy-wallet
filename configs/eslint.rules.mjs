@@ -60,6 +60,7 @@ export const eslintRules = [
       "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/prefer-nullish-coalescing": "error",
       "@typescript-eslint/prefer-reduce-type-parameter": "error",
+      "@typescript-eslint/strict-boolean-expressions": "error",
 
       "arrow-body-style": ["warn", "as-needed"],
       curly: "error",
