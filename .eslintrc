@@ -1,0 +1,2 @@
+// This file is created only as a workaround to avoid errors with rule import/no-unused-modules
+// Source: https://github.com/import-js/eslint-plugin-import/issues/3079#issuecomment-2392965601
