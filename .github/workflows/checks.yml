@@ -17,7 +17,7 @@ jobs:
         continue-on-error: true
         id: app-token
         with:
-          app-id: ${{ vars.PR_AUTOMATION_BOT_PUBLIC_APP_ID }}
+          client-id: ${{ vars.PR_AUTOMATION_BOT_PUBLIC_CLIENT_ID }}
           private-key: ${{ secrets.PR_AUTOMATION_BOT_PUBLIC_PRIVATE_KEY }}
       - name: Check if commits can be added
         id: check_can_add_commit
