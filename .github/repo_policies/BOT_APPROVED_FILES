@@ -3,6 +3,8 @@
 
 package.json
 package-lock.json
+CHANGELOG.md
+.release-please-manifest.json
 tests/**/*.spec.ts
 .github/actions/*.yml
 .github/workflows/*.yml
