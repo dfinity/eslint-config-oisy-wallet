@@ -86,6 +86,58 @@ ruleTester.run("use-nullish-checks", rule, {
       options: [{ allowFindUndefinedCheck: true }],
       filename,
     },
+
+    // Boolean naming convention: function calls
+    {
+      code: "if (isReady()) {}",
+      filename,
+    },
+    {
+      code: "if (hasItems()) {}",
+      filename,
+    },
+    {
+      code: "if (shouldUpdate()) {}",
+      filename,
+    },
+    {
+      code: "if (canDelete()) {}",
+      filename,
+    },
+    {
+      code: "if (!isValid()) {}",
+      filename,
+    },
+    // Boolean naming convention: identifiers
+    {
+      code: "if (isValid) {}",
+      filename,
+    },
+    {
+      code: "if (hasError) {}",
+      filename,
+    },
+    // Boolean naming convention: member expressions
+    {
+      code: "if (node.isOptional) {}",
+      filename,
+    },
+    // Boolean naming convention: method calls on objects
+    {
+      code: "if (obj.isReady()) {}",
+      filename,
+    },
+    // Boolean naming convention: in logical expressions
+    {
+      code: "if (isReady() && hasItems()) {}",
+      filename,
+    },
+    // Boolean naming convention: with includeBooleans
+    {
+      code: "if (isReady()) {}",
+      options: [{ includeBooleans: true }],
+      filename,
+    },
   ],
 
   invalid: [
